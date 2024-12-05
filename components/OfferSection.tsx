@@ -5,9 +5,9 @@ import { Offer } from "./Offer";
 import mockOfferData from "@/data/mockOfferData.json";
 export const OfferSection: FC = () => {
   return (
-    <section>
+    <section className="mt-10 w-full flex flex-col items-center justify-center">
       <Title>Najnowsze oferty nieruchomości</Title>
-      <div className="flex flex-wrap justify-center max-w-[1200px] mx-auto">
+      <div className="flex flex-wrap justify-center max-w-[1200px] mx-auto mt-8">
         {mockOfferData.map((offer) => (
           <Offer
             key={offer.id}

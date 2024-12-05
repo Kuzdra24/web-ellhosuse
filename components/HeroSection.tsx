@@ -34,13 +34,13 @@ export const HeroSection: React.FC = () => {
             </p>
             <Button>Zobacz nasze oferty</Button>
           </div>
-          <div className="hidden md:flex max-w-[50vw] w-full h-full flex-col items-center justify-end">
+          <div className="hidden md:flex max-w-[50vw] w-[50vw] h-full flex-col items-center justify-end">
             <Image 
               src={ElaSrc} 
               alt="Ela"
               width={400}
               height={600} 
-              className="w-auto h-full object-contain"
+              className="w-auto h-full object-contain "
               priority
             />
           </div>

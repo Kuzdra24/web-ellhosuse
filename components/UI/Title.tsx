@@ -8,13 +8,11 @@ const Title = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
+        setIsVisible(entry.isIntersecting);
       },
       {
         threshold: 0.1,
+        rootMargin: '0px',
       }
     );
 
@@ -30,9 +28,11 @@ const Title = ({ children }: { children: React.ReactNode }) => {
       <h2 className="text-center text-[40px] font-lora font-light text-text inline-block relative z-20">
         {children}
       </h2>
-      <span className={`absolute bottom-0 left-0 w-1/3 h-[80%] bg-accent z-10 ${
-        isVisible ? "animate-[slideFromRight_0.5s_ease-out]" : "opacity-0"
-      }`}></span>
+      <span 
+        className={`absolute bottom-0 left-0 h-[80%] bg-accent z-10 transition-opacity duration-300 ${
+          isVisible ? "animate-expandFromLeft opacity-100" : "w-0 opacity-0"
+        }`}
+      />
     </div>
   );
 };
