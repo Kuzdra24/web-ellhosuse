@@ -27,7 +27,7 @@ const Title = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="relative" ref={elementRef}>
-      <h2 className="text-[40px] font-lora font-light text-text inline-block relative z-20">
+      <h2 className="text-center text-[40px] font-lora font-light text-text inline-block relative z-20">
         {children}
       </h2>
       <span className={`absolute bottom-0 left-0 w-1/3 h-[80%] bg-accent z-10 ${
