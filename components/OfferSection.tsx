@@ -3,11 +3,12 @@ import Title from "./UI/Title";
 import { FC } from "react";
 import { Offer } from "./Offer";
 import mockOfferData from "@/data/mockOfferData.json";
+import Button from "@/components/UI/Button";
 export const OfferSection: FC = () => {
   return (
-    <section className="mt-10 w-full flex flex-col items-center justify-center">
+    <section className="mt-10 w-full flex flex-col items-center justify-center mb-16">
       <Title>Najnowsze oferty nieruchomości</Title>
-      <div className="flex flex-wrap justify-center max-w-[1200px] mx-auto mt-8">
+      <div className="flex flex-wrap justify-center max-w-[1200px] mx-auto m-8">
         {mockOfferData.map((offer) => (
           <Offer
             key={offer.id}
@@ -20,6 +21,7 @@ export const OfferSection: FC = () => {
           />
         ))}
       </div>
+      <Button>Więcej ofert</Button>
     </section>
   );
 };

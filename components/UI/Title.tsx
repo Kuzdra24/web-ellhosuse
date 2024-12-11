@@ -29,7 +29,7 @@ const Title = ({ children }: { children: React.ReactNode }) => {
         {children}
       </h2>
       <span 
-        className={`absolute bottom-0 left-0 h-[80%] bg-accent z-10 transition-opacity duration-300 ${
+        className={`absolute top-0 left-0 md:h-[90%] h-[50%] bg-accent z-10 transition-opacity duration-300 ${
           isVisible ? "animate-expandFromLeft opacity-100" : "w-0 opacity-0"
         }`}
       />
