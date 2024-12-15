@@ -7,6 +7,7 @@ import Input from "@/components/UI/Input";
 import Select from "@/components/UI/Select";
 import { regions, homeTypes } from "@/data/applyFormData";
 import Button from "@/components/UI/Button";
+import toast, { Toaster } from 'react-hot-toast';
 
 // Schema walidacji za pomocą Zod
 const applyFormSchema = z.object({
@@ -53,9 +54,25 @@ export const ApplyForm: FC = () => {
     },
   });
 
+  const notify = () => toast.success('Formularz wysłany pomyślnie', {
+    duration: 3000,
+    style: {
+      border: '1px solid #3fc580',
+      padding: '16px',
+      color: '#3fc580',
+    },
+    iconTheme: {
+      primary: '#3fc580',
+      secondary: '#FFFAEE',
+    },
+  });
+
   const onSubmit = (data: ApplyFormValues) => {
     console.log("Form Data:", data);
+    notify()
   };
+
+
 
   return (
     <form
@@ -64,6 +81,7 @@ export const ApplyForm: FC = () => {
       })}
       className="space-y-4 w-full max-w-[1000px] flex flex-wrap "
     >
+        <Toaster />
       <div className="w-[50%] min-w-[250px] p-10">
         <h2 className="text-[28px] mb-8 font-montserrat">Twoje Dane</h2>
         <Input
