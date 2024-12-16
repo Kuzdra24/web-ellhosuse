@@ -3,7 +3,7 @@ import { FC } from "react";
 import Image from "next/image";
 import mapPin from "@/assets/icons/mapPin.svg";
 import houseUrl from "@/assets/images/offer-image.png";
-import Button from "./UI/Button";
+import Button from "./Button";
 type OfferProps = {
   title: string;
   address: string;

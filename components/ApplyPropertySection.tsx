@@ -1,5 +1,5 @@
 import { FC } from "react";
-import Title from "./UI/Title";
+import Title from "./Title";
 import ApplyBox from "./ApplyBox";
 import sellSrc from "@/assets/images/sell.jpg";
 import searchSrc from "@/assets/images/search.jpg";

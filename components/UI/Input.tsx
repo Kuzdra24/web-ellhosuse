@@ -1,25 +1,22 @@
-import React, { InputHTMLAttributes } from "react";
+import * as React from "react"
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  id: string;
-  label: string;
-  error?: string; 
-}
+import { cn } from "@/lib/utils"
 
-const Input: React.FC<InputProps> = ({ id, label, error, ...props }) => (
-  <div className="flex flex-col gap-2">
-    <label htmlFor={id} className="text-sm font-medium text-gray-700">
-      {label}
-    </label>
-    <input
-      id={id}
-      className={`w-full rounded-lg border p-3 text-sm ${
-        error ? "border-red-500 focus:border-red-500 focus:ring-red-200" : "border-gray-300 focus:border-blue-500 focus:ring-blue-200"
-      }`}
-      {...props}
-    />
-    {error && <span className="text-[12px] text-red-500">{error}</span>} {/* Komunikat błędu */}
-  </div>
-);
+const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
+  ({ className, type, ...props }, ref) => {
+    return (
+      <input
+        type={type}
+        className={cn(
+          "flex h-9 w-full rounded-md border border-neutral-200 bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-neutral-950 placeholder:text-neutral-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm dark:border-neutral-800 dark:file:text-neutral-50 dark:placeholder:text-neutral-400 dark:focus-visible:ring-neutral-300",
+          className
+        )}
+        ref={ref}
+        {...props}
+      />
+    )
+  }
+)
+Input.displayName = "Input"
 
-export default Input;
+export { Input }

@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import logo from '@/assets/images/logo.png'
 import { useState } from "react";
-import HamburgerMenu from "./UI/HamburgerMenu";
+import HamburgerMenu from "./HamburgerMenu";
 import { useWidth } from "@/hooks/useWidth";
 
 export const navigation = {

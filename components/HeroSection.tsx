@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import banerImg from "@/assets/images/baner-img.jpg";
 import ElaSrc from "@/assets/images/ela.png";
-import Button from "./UI/Button";
+import Button from "./Button";
 
 export const HeroSection: React.FC = () => {
   return (

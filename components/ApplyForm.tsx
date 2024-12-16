@@ -3,12 +3,12 @@ import { FC } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Input from "@/components/UI/Input";
-import Select from "@/components/UI/Select";
+import Input from "@/components/Input";
+import Select from "@/components/Select";
 import { regions, homeTypes } from "@/data/applyFormData";
-import Button from "@/components/UI/Button";
+import Button from "@/components/Button";
 import toast, { Toaster } from 'react-hot-toast';
-
+import { DatePicker } from "@/components/DatePicker";
 // Schema walidacji za pomocą Zod
 const applyFormSchema = z.object({
   name: z.string().min(3, "Imię i nazwisko jest wymagane"),
@@ -81,7 +81,7 @@ export const ApplyForm: FC = () => {
       })}
       className="space-y-4 w-full max-w-[1000px] flex flex-wrap "
     >
-        <Toaster />
+      <Toaster />
       <div className="w-[50%] min-w-[250px] p-10">
         <h2 className="text-[28px] mb-8 font-montserrat">Twoje Dane</h2>
         <Input
@@ -105,9 +105,11 @@ export const ApplyForm: FC = () => {
           {...register("phone")}
           error={errors.phone?.message}
         />
+        <DatePicker />
+
       </div>
       <div className="w-[50%] min-w-[250px] p-10">
-      <h2 className="text-[28px] mb-8 font-montserrat">Dane nieruchomości</h2>
+        <h2 className="text-[28px] mb-8 font-montserrat">Dane nieruchomości</h2>
         <Controller
           name="region"
           control={control}
@@ -167,3 +169,4 @@ export const ApplyForm: FC = () => {
 };
 
 export default ApplyForm;
+

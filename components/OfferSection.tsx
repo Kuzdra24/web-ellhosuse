@@ -1,9 +1,9 @@
 "use client";
-import Title from "./UI/Title";
+import Title from "./Title";
 import { FC } from "react";
 import { Offer } from "./Offer";
 import mockOfferData from "@/data/mockOfferData.json";
-import Button from "@/components/UI/Button";
+import Button from "@/components/Button";
 export const OfferSection: FC = () => {
   return (
     <section className="mt-10 w-full flex flex-col items-center justify-center mb-16">
