@@ -2,8 +2,8 @@
 
 import * as React from "react"
 import { format } from "date-fns"
+import {pl} from 'date-fns/locale'
 import { CalendarIcon } from "lucide-react"
-
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/UI/button"
 import { Calendar } from "@/components/UI/calendar"
@@ -27,13 +27,14 @@ export function DatePicker() {
           )}
         >
           <CalendarIcon />
-          {date ? format(date, "PPP") : <span>Pick a date</span>}
+          {date ? format(date, "PPP", { locale: pl }) : <span>Data rozpoczęcia sprzedazy</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">
         <Calendar
           mode="single"
           selected={date}
+          locale={pl}
           onSelect={setDate}
           initialFocus
         />

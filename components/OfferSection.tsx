@@ -3,7 +3,7 @@ import Title from "./Title";
 import { FC } from "react";
 import { Offer } from "./Offer";
 import mockOfferData from "@/data/mockOfferData.json";
-import Button from "@/components/Button";
+import Button from "@/components/PrimaryButton";
 export const OfferSection: FC = () => {
   return (
     <section className="mt-10 w-full flex flex-col items-center justify-center mb-16">

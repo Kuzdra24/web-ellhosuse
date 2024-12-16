@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
 import { regions, homeTypes } from "@/data/applyFormData";
-import Button from "@/components/Button";
+import Button from "@/components/PrimaryButton";
 import toast, { Toaster } from 'react-hot-toast';
 import { DatePicker } from "@/components/DatePicker";
 // Schema walidacji za pomocą Zod
@@ -28,6 +28,9 @@ const applyFormSchema = z.object({
     .positive("Powierzchnia musi być liczbą dodatnią")
     .transform((value) => Number(value)),
   listingDate: z.date().optional(),
+  saleDate: z.date({
+    required_error: "Data jest wymagana",
+  }),
 });
 
 // Typowanie formularza
