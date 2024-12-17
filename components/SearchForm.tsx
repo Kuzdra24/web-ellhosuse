@@ -16,6 +16,7 @@ import {
     FormMessage,
 } from "@/components/UI/form";
 import { Input } from "@/components/UI/input";
+import { Slider } from "@/components/UI/slider";
 import {
     Select,
     SelectContent,
@@ -34,50 +35,54 @@ import { pl } from 'date-fns/locale'
 import { regions, homeTypes } from '@/data/applyFormData'
 
 // Schema walidacji formularza
-const applyFormSchema = z.object({
-    name: z.string().min(3, "Imię i nazwisko jest wymagane"),
-    email: z.string().email("Podaj prawidłowy adres e-mail"),
+const formSchema = z.object({
+    fullName: z.string().min(3, "Imię i nazwisko jest wymagane"),
+    email: z.string().email("Podaj prawidłowy adres email"),
     phone: z.string().regex(/^\d{9}$/, "Numer telefonu powinien składać się z 9 cyfr"),
-    region: z.string().min(1, "Wybierz województwo"),
     homeType: z.string().min(1, "Wybierz typ nieruchomości"),
-    city: z.string().min(1, "Podaj miasto"),
     offerType: z.string().min(1, "Wybierz typ oferty"),
-    price: z
-        .string()
-        .regex(/^\d+(\.\d+)?$/, "Cena musi być liczbą, np. 123 lub 123.45")
-        .min(1, "Cena jest wymagana"),
-    area: z
-        .string()
-        .regex(/^\d+(\.\d+)?$/, "Powierzchnia musi być liczbą, np. 50 lub 50.5")
-        .min(1, "Powierzchnia jest wymagana"),
-    saleDate: z.date({
-        required_error: "Data jest wymagana",
+    region: z.string().min(1, "Wybierz województwo"),
+    city: z.string().min(1, "Podaj miasto"),
+    priceRange: z
+        .tuple([z.number().min(0, "Cena minimalna musi być nieujemna"), z.number()])
+        .refine(([min, max]) => max > min, "Cena maksymalna musi być większa niż minimalna"),
+    areaRange: z
+        .tuple([z.number().min(0, "Powierzchnia minimalna musi być nieujemna"), z.number()])
+        .refine(([min, max]) => max > min, "Powierzchnia maksymalna musi być większa niż minimalna"),
+    searchDate: z.date({
+        required_error: "Wybierz datę rozpoczęcia poszukiwań",
     }),
 });
 
-// Typowanie formularza
-type ApplyFormValues = z.infer<typeof applyFormSchema>;
+// Typowanie wartości formularza
+type FormValues = z.infer<typeof formSchema>;
 
-export function ApplyForm() {
-    const form = useForm<ApplyFormValues>({
-        resolver: zodResolver(applyFormSchema),
+export function SearchForm() {
+    const form = useForm<FormValues>({
+        resolver: zodResolver(formSchema),
         defaultValues: {
-            name: "",
+            fullName: "",
             email: "",
             phone: "",
-            region: "",
             homeType: "",
-            city: "",
             offerType: "",
-            price: "",
-            area: "",
-            saleDate: undefined,
+            region: "",
+            city: "",
+            priceRange: [0, 1000000],
+            areaRange: [0, 200],
+            searchDate: undefined,
         },
     });
-
     const { toast } = useToast();
 
-    const onSubmit = (values: ApplyFormValues) => {
+    const offerType = form.watch("offerType"); 
+
+    const priceRangeConfig =
+        offerType === "sprzedaz"
+            ? { min: 0, max: 5000000, step: 10000 }
+            : { min: 0, max: 10000, step: 100 };
+
+    const onSubmit = (values: FormValues) => {
         console.log("Submitted Data: ", values);
 
         toast({
@@ -85,16 +90,15 @@ export function ApplyForm() {
             description: "Twoje dane zostały przesłane.",
         });
     };
-    console.log("Błędy formularza: ", form.formState.errors);
 
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 bg-white rounded-md shadow-md flex justify-center items-center flex-wrap w-full max-w-[1000px]">
-                <div className="w-full sm:w-[50%] min-w-[250px] p-5 sm:p-10">
+                <div className="w-full sm:w-[50%] min-w-[250px] p-5 sm:p-10"> {/* Full Name */}
                     <h2 className="font-montserrat text-[24px] text-text">Twoje Dane</h2>
                     <FormField
                         control={form.control}
-                        name="name"
+                        name="fullName"
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Imię i nazwisko</FormLabel>
@@ -106,12 +110,13 @@ export function ApplyForm() {
                         )}
                     />
 
+                    {/* Email */}
                     <FormField
                         control={form.control}
                         name="email"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Email</FormLabel>
+                                <FormLabel>Adres email</FormLabel>
                                 <FormControl>
                                     <Input placeholder="jan.kowalski@example.com" {...field} />
                                 </FormControl>
@@ -120,6 +125,7 @@ export function ApplyForm() {
                         )}
                     />
 
+                    {/* Phone */}
                     <FormField
                         control={form.control}
                         name="phone"
@@ -134,12 +140,13 @@ export function ApplyForm() {
                         )}
                     />
 
+                    {/* Search Date */}
                     <FormField
                         control={form.control}
-                        name="saleDate"
+                        name="searchDate"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Kiedy rozpocząć poszukiwania</FormLabel><br />
+                                <FormLabel>Kiedy rozpocząć poszukiwanie</FormLabel><br />
                                 <Popover>
                                     <PopoverTrigger asChild>
                                         <FormControl>
@@ -177,25 +184,49 @@ export function ApplyForm() {
                         )}
                     />
 
-                    <Button type="submit" variant={"primary"} size={"lg"} className="w-full">Wyślij formularz</Button>
+                    <Button type="submit" variant={"primary"} size={"lg"} className="w-full">Wyślij zgłoszenie</Button>
                 </div>
 
                 <div className="w-full sm:w-[50%] min-w-[250px] p-5 sm:p-10">
-                    <h2 className="font-montserrat text-[24px] text-text">Dane nieruchomości</h2>
+                    <h2 className="font-montserrat text-[24px] text-text">Jakiej nieruchomości szukasz?</h2>
+                    {/* Home Type */}
+                    <FormField
+                        control={form.control}
+                        name="homeType"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Typ nieruchomości</FormLabel>
+                                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                    <FormControl>
+                                        <SelectTrigger>
+                                            <SelectValue placeholder="Wybierz typ nieruchomości" />
+                                        </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent>
+                                        {homeTypes.map(item => <SelectItem value={item.value} key={item.value}>{item.label}</SelectItem>)}
+
+                                    </SelectContent>
+                                </Select>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+
+                    {/* Offer Type */}
                     <FormField
                         control={form.control}
                         name="offerType"
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Typ oferty</FormLabel>
-                                <Select onValueChange={field.onChange} value={field.value}>
+                                <Select onValueChange={field.onChange} defaultValue={field.value}>
                                     <FormControl>
                                         <SelectTrigger>
                                             <SelectValue placeholder="Wybierz typ oferty" />
                                         </SelectTrigger>
                                     </FormControl>
                                     <SelectContent>
-                                        <SelectItem value="sprzedaż">Sprzedaż</SelectItem>
+                                        <SelectItem value="sprzedaz">Sprzedaż</SelectItem>
                                         <SelectItem value="wynajem">Wynajem</SelectItem>
                                     </SelectContent>
                                 </Select>
@@ -203,54 +234,30 @@ export function ApplyForm() {
                             </FormItem>
                         )}
                     />
-                    <FormField
-                        control={form.control}
-                        name="region"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Województwo</FormLabel>
-                                <Select onValueChange={field.onChange} value={field.value}>
-                                    <FormControl>
-                                        <SelectTrigger>
-                                            <SelectValue placeholder="Wybierz województwo" />
-                                        </SelectTrigger>
-                                    </FormControl>
-                                    <SelectContent>
-                                        {regions.map(region => (
-                                            <SelectItem key={region.value} value={region.value}>
-                                                {region.label}
-                                            </SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
 
-                    <FormField
-                        control={form.control}
-                        name="homeType"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Typ nieruchomości</FormLabel>
-                                <Select onValueChange={field.onChange} value={field.value}>
-                                    <FormControl>
-                                        <SelectTrigger>
-                                            <SelectValue placeholder="Wybierz typ nieruchomości" />
-                                        </SelectTrigger>
-                                    </FormControl>
-                                    <SelectContent>
-                                        {homeTypes.map(item => (
-                                            <SelectItem value={item.value} key={item.value}>{item.label}</SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+                    {/* Region */}
+                    <FormField control={form.control} name="region" render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Województwo</FormLabel>
+                            <Select onValueChange={field.onChange} value={field.value}>
+                                <FormControl>
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Wybierz województwo" />
+                                    </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                    {regions.map(region => (
+                                        <SelectItem key={region.value} value={region.value}>
+                                            {region.label} {/* Wyświetla pełną nazwę województwa */}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                            <FormMessage />
+                        </FormItem>
+                    )} />
 
+                    {/* City */}
                     <FormField
                         control={form.control}
                         name="city"
@@ -258,46 +265,54 @@ export function ApplyForm() {
                             <FormItem>
                                 <FormLabel>Miasto</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="Opole" {...field} />
+                                    <Input placeholder="Podaj miasto" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}
                     />
 
-                    {/* Cena jako pole tekstowe */}
+                    {/* Price Range */}
                     <FormField
                         control={form.control}
-                        name="price"
+                        name="priceRange"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Cena</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        type="number"
-                                        placeholder="Cena nieruchomości"
-                                        {...field}
-                                    />
-                                </FormControl>
+                                <FormLabel>Cena (min / max)</FormLabel>
+                                <div className="flex justify-between">
+                                    <span>{field.value[0]} PLN</span>
+                                    <span>{field.value[1]} PLN</span>
+                                </div>
+                                <Slider
+                                    defaultValue={field.value}
+                                    min={priceRangeConfig.min}
+                                    max={priceRangeConfig.max}
+                                    step={priceRangeConfig.step}
+                                    onValueChange={field.onChange}
+                                />
                                 <FormMessage />
                             </FormItem>
                         )}
                     />
 
-                    {/* Powierzchnia jako pole tekstowe */}
+                    {/* Area Range */}
                     <FormField
                         control={form.control}
-                        name="area"
+                        name="areaRange"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Powierzchnia (m²)</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        type="number"
-                                        placeholder="Powierzchnia nieruchomości"
-                                        {...field}
-                                    />
-                                </FormControl>
+                                <FormLabel>Powierzchnia (min / max)</FormLabel>
+                                <div className="flex justify-between">
+                                    <span>{field.value[0]} m²</span>
+                                    <span>{field.value[1]} m²</span>
+                                </div>
+                                <Slider
+                                    defaultValue={field.value}
+                                    min={0}
+                                    max={200}
+                                    step={1}
+                                    onValueChange={field.onChange}
+                                />
                                 <FormMessage />
                             </FormItem>
                         )}
