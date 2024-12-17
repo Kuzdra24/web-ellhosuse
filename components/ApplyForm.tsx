@@ -6,7 +6,7 @@ import { z } from "zod";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/UI/button";
+import { Button } from "@/components/UI/Button";
 import {
     Form,
     FormControl,
@@ -15,14 +15,14 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/UI/form";
-import { Input } from "@/components/UI/input";
+import { Input } from "@/components/UI/Input";
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "@/components/UI/select";
+} from "@/components/UI/Select";
 import { Calendar } from "@/components/UI/calendar";
 import {
     Popover,
@@ -75,17 +75,39 @@ export function ApplyForm() {
         },
     });
 
-    const { toast } = useToast();
+    const { toast } = useToast(); 
 
-    const onSubmit = (values: ApplyFormValues) => {
+    const onSubmit = async(values: ApplyFormValues) => {
         console.log("Submitted Data: ", values);
 
-        toast({
-            title: "Formularz wysłany pomyślnie!",
-            description: "Twoje dane zostały przesłane.",
+        try {
+        const response = await fetch("/api/send-email", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({...values, applyType: "Nieruchomość na sprzedaz"}),
         });
+
+        if (response.ok) {
+            const responseData = await response.json();
+            console.log("Odpowiedź z serwera: ", responseData);
+            toast({
+                title: "Sukces",
+                description: "Twoje dane zostały przesłane pomyślnie.",
+            });
+        } else {
+            throw new Error("Błąd podczas wysyłania formularza.");
+        }
+    } catch (error) {
+        console.error("Błąd wysyłania formularza: ", error);
+        toast({
+            title: "Błąd",
+            description: "Wystąpił problem z wysyłaniem formularza.",
+            variant: "destructive", // Możesz zmienić styl toastu na bardziej negatywny
+        });
+    }
     };
-    console.log("Błędy formularza: ", form.formState.errors);
 
     return (
         <Form {...form}>

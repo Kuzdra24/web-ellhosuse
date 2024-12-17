@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nowe zgłoszenie z formularza</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .email-wrapper {
+            width: 100%;
+            background-color: #f4f4f9;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .email-container {
+            width: 100%;
+            max-width: 700px;
+            background-color: #ffffff;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #6c4e9f;  /* Ciemniejszy fiolet */
+            font-size: 22px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .section-title {
+            font-size: 18px;
+            margin-top: 30px;
+            color: #6c4e9f;
+            text-transform: uppercase;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .table th, .table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table th {
+            background-color: #e0cfe1;  /* Delikatny fiolet */
+            color: #6c4e9f;
+            font-weight: bold;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: #6c4e9f;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #777;
+        }
+
+        .footer a {
+            color: #6c4e9f;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="email-wrapper">
+        <div class="email-container">
+            <h2>Nowe zgłoszenie z formularza</h2>
+            <h3><%= applyType %> - Zgłoszenie klienta</h3>
+            
+            <div class="section-title">Informacje o kliencie</div>
+            <table class="table">
+                <tr>
+                    <th>Imię i nazwisko</th>
+                    <td><%= name %></td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td><%= email %></td>
+                </tr>
+                <tr>
+                    <th>Numer telefonu</th>
+                    <td><%= phone %></td>
+                </tr>
+                <tr>
+                    <th>Region</th>
+                    <td><%= region %></td>
+                </tr>
+                <tr>
+                    <th>Miasto</th>
+                    <td><%= city %></td>
+                </tr>
+            </table>
+
+            <div class="section-title">Informacje o nieruchomości</div>
+            <table class="table">
+                <tr>
+                    <th>Typ nieruchomości</th>
+                    <td><%= homeType %></td>
+                </tr>
+                <tr>
+                    <th>Cena</th>
+                    <td><%= price %> PLN</td>
+                </tr>
+                <tr>
+                    <th>Powierzchnia</th>
+                    <td><%= area %> m²</td>
+                </tr>
+                <tr>
+                    <th>Kiedy rozpocząć poszukiwania</th>
+                    <td><%= formattedListingDate %></td>
+                </tr>
+                <tr>
+                    <th>Data sprzedaży</th>
+                    <td><%= formattedSaleDate %></td>
+                </tr>
+            </table>
+
+            <p class="footer">Dziękujemy za kontakt z nami! Jeśli masz jakiekolwiek pytania, skontaktuj się z nami.</p>
+            <p class="footer">Jeśli nie zgłaszałeś tego formularza, prosimy o kontakt z naszym zespołem. <a href="mailto:support@example.com">support@example.com</a></p>
+        </div>
+    </div>
+</body>
+</html>

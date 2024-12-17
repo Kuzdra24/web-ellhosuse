@@ -6,7 +6,7 @@ import { z } from "zod";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/UI/button";
+import { Button } from "@/components/UI/Button";
 import {
     Form,
     FormControl,
@@ -15,7 +15,7 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/UI/form";
-import { Input } from "@/components/UI/input";
+import { Input } from "@/components/UI/Input";
 import { Slider } from "@/components/UI/slider";
 import {
     Select,
@@ -23,7 +23,7 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "@/components/UI/select";
+} from "@/components/UI/Select";
 import { Calendar } from "@/components/UI/calendar";
 import {
     Popover,
@@ -68,7 +68,7 @@ export function SearchForm() {
             offerType: "",
             region: "",
             city: "",
-            priceRange: [0, 1000000],
+            priceRange: [0, 100],
             areaRange: [0, 200],
             searchDate: undefined,
         },
@@ -82,15 +82,37 @@ export function SearchForm() {
             ? { min: 0, max: 5000000, step: 10000 }
             : { min: 0, max: 10000, step: 100 };
 
-    const onSubmit = (values: FormValues) => {
-        console.log("Submitted Data: ", values);
-
-        toast({
-            title: "Formularz wysłany pomyślnie!",
-            description: "Twoje dane zostały przesłane.",
-        });
-    };
-
+            const onSubmit = async(values: FormValues) => {
+                console.log("Submitted Data: ", values);
+        
+                try {
+                const response = await fetch("/api/send-email", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({...values, applyType: "Poszukiwanie nieruchomości"}),
+                });
+        
+                if (response.ok) {
+                    const responseData = await response.json();
+                    console.log("Odpowiedź z serwera: ", responseData);
+                    toast({
+                        title: "Sukces",
+                        description: "Twoje dane zostały przesłane pomyślnie.",
+                    });
+                } else {
+                    throw new Error("Błąd podczas wysyłania formularza.");
+                }
+            } catch (error) {
+                console.error("Błąd wysyłania formularza: ", error);
+                toast({
+                    title: "Błąd",
+                    description: "Wystąpił problem z wysyłaniem formularza.",
+                    variant: "destructive", // Możesz zmienić styl toastu na bardziej negatywny
+                });
+            }
+            };
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 bg-white rounded-md shadow-md flex justify-center items-center flex-wrap w-full max-w-[1000px]">
