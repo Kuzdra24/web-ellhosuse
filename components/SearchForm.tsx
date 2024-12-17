@@ -6,7 +6,6 @@ import { z } from "zod";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import PrimaryButton from "@/components/PrimaryButton";
 import { Button } from "@/components/UI/button";
 import {
     Form,
@@ -33,6 +32,7 @@ import {
 } from "@/components/UI/popover";
 import { useToast } from "@/hooks/use-toast";
 import { pl } from 'date-fns/locale'
+import { regions, homeTypes } from '@/data/applyFormData'
 
 // Schema walidacji formularza
 const formSchema = z.object({
@@ -75,6 +75,13 @@ export function SearchForm() {
     });
     const { toast } = useToast();
 
+    const offerType = form.watch("offerType"); 
+
+    const priceRangeConfig =
+        offerType === "sprzedaz"
+            ? { min: 0, max: 5000000, step: 10000 }
+            : { min: 0, max: 10000, step: 100 };
+
     const onSubmit = (values: FormValues) => {
         console.log("Submitted Data: ", values);
 
@@ -86,8 +93,8 @@ export function SearchForm() {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 flex justify-center items-center flex-wrap w-full max-w-[1000px]">
-                <div className="w-[50%] min-w-[250px] p-10"> {/* Full Name */}
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 bg-white rounded-md shadow-md flex justify-center items-center flex-wrap w-full max-w-[1000px]">
+                <div className="w-full sm:w-[50%] min-w-[250px] p-5 sm:p-10"> {/* Full Name */}
                     <h2 className="font-montserrat text-[24px] text-text">Twoje Dane</h2>
                     <FormField
                         control={form.control}
@@ -177,11 +184,11 @@ export function SearchForm() {
                         )}
                     />
 
-                    <PrimaryButton type="submit">Wyślij zgłoszenie</PrimaryButton>
+                    <Button type="submit" variant={"primary"} size={"lg"} className="w-full">Wyślij zgłoszenie</Button>
                 </div>
 
-                <div className="w-[50%] min-w-[250px] p-10">
-                <h2 className="font-montserrat text-[24px] text-text">Jakiej nieruchomości szukasz?</h2>
+                <div className="w-full sm:w-[50%] min-w-[250px] p-5 sm:p-10">
+                    <h2 className="font-montserrat text-[24px] text-text">Jakiej nieruchomości szukasz?</h2>
                     {/* Home Type */}
                     <FormField
                         control={form.control}
@@ -196,8 +203,8 @@ export function SearchForm() {
                                         </SelectTrigger>
                                     </FormControl>
                                     <SelectContent>
-                                        <SelectItem value="dom">Dom</SelectItem>
-                                        <SelectItem value="mieszkanie">Mieszkanie</SelectItem>
+                                        {homeTypes.map(item => <SelectItem value={item.value} key={item.value}>{item.label}</SelectItem>)}
+
                                     </SelectContent>
                                 </Select>
                                 <FormMessage />
@@ -229,19 +236,26 @@ export function SearchForm() {
                     />
 
                     {/* Region */}
-                    <FormField
-                        control={form.control}
-                        name="region"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Województwo</FormLabel>
+                    <FormField control={form.control} name="region" render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Województwo</FormLabel>
+                            <Select onValueChange={field.onChange} value={field.value}>
                                 <FormControl>
-                                    <Input placeholder="Wybierz województwo" {...field} />
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Wybierz województwo" />
+                                    </SelectTrigger>
                                 </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+                                <SelectContent>
+                                    {regions.map(region => (
+                                        <SelectItem key={region.value} value={region.value}>
+                                            {region.label} {/* Wyświetla pełną nazwę województwa */}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                            <FormMessage />
+                        </FormItem>
+                    )} />
 
                     {/* City */}
                     <FormField
@@ -271,9 +285,9 @@ export function SearchForm() {
                                 </div>
                                 <Slider
                                     defaultValue={field.value}
-                                    min={0}
-                                    max={5000000}
-                                    step={10000}
+                                    min={priceRangeConfig.min}
+                                    max={priceRangeConfig.max}
+                                    step={priceRangeConfig.step}
                                     onValueChange={field.onChange}
                                 />
                                 <FormMessage />
