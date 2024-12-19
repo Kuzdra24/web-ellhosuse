@@ -18,7 +18,7 @@ export const HeroSection: React.FC = () => {
               className="object-cover"
               priority
             />
-            <div className="absolute inset-0 backdrop-blur-[15px] bg-white/60" />
+            <div className="absolute inset-0 backdrop-blur-[6px] bg-white/60" />
           </div>
         </div>
         <div className="relative w-full h-full px-4 flex flex-col md:flex-row items-center justify-center">
