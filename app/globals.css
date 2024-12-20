@@ -15,6 +15,23 @@ body {
   font-family: var(--font-montserrat), sans-serif;
 }
 
+.blog-post {
+  border-radius: var(--radius);
+  padding: 1rem;
+  list-style: decimal-leading-zero;
+  
+}
+.blog-post p{
+  margin: 5px;
+}
+.blog-post ul{
+  margin-left: 20px;
+}
+
+.blog-post li{
+  margin: 5px;
+  list-style: inside;
+}
 @layer base {
   :root {
     --radius: 0.5rem;
