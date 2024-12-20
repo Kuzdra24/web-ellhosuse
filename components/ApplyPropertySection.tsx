@@ -22,12 +22,12 @@ const ApplyPropertySection: FC = () => {
         <ApplyBox
           imgSrc={sellSrc}
           title="Sprzedaj swoją nieruchomość z naszą pomocą"
-          url="/sell-form"
+          url="/zglos-nieruchomosc"
         />
         <ApplyBox
           imgSrc={searchSrc}
           title="Zleć poszukiwanie nieruchomości"
-          url="/search-form"
+          url="/zlec-poszukiwanie"
         />
       </div>
     </section>
