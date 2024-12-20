@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Home, MapPin, DollarSign } from "lucide-react";
+import { Home, User, Handshake } from "lucide-react";
 import iconImage from '@/assets/images/600x500.svg';
 import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
@@ -35,11 +35,11 @@ export const MultiStepSearchForm = () => {
     const getStepInfo = () => {
         switch (currentStep) {
             case 1:
-                return { icon: <Home size={32} />, title: "Krok 1: Dane osobowe" };
+                return { icon: <User size={32} />, title: "Krok 1: Dane osobowe" };
             case 2:
-                return { icon: <MapPin size={32} />, title: "Krok 2: Szczegóły nieruchomości" };
+                return { icon: <Home size={32} />, title: "Krok 2: Szczegóły nieruchomości" };
             case 3:
-                return { icon: <DollarSign size={32} />, title: "Krok 3: Podsumowanie" };
+                return { icon: <Handshake size={32} />, title: "Krok 3: Podsumowanie" };
             default:
                 return { icon: <Home size={32} />, title: "Krok" };
         }
