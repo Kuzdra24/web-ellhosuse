@@ -20,7 +20,7 @@ export default async function Blog() {
                 <div className="cursor-pointer">
                   <Image width={post.obraz.width} height={post.obraz.height} src={post.obraz.url} alt={post.title} className="w-full h-auto rounded-t-md" />
                   <div className="p-4">
-                    <p className="text-gray-500 text-sm mb-2">Dodane {format(new Date(post.updatedAt), 'dd MMMM yyyy')}</p>
+                    <p className="text-gray-500 text-sm mb-2">Dodane {format(new Date(post.updatedAt), 'dd MMMM yyyy', {locale: pl})}</p>
                     <h2 className="text-2xl font-semibold mb-2">{post.title}</h2>
                     <p className="text-gray-700">{post.subtitle}</p>
                   </div>

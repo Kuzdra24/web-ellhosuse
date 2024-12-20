@@ -27,19 +27,18 @@ export const HeroSection: React.FC = () => {
               EllHouse nieruchomości
             </h1>
             <hr className="w-[250px] border-t-2 border-primary my-4 mb-8" />
-            <p className="text-lg md:text-xl font-montserrat max-w-[600px] mb-10">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam
+            <p className="text-lg font-montserrat max-w-[600px] mb-10">
+              Nasze podejście opiera się na zaufaniu i pełnym zaangażowaniu w każdą transakcję. Dążymy do tego, abyś czuł się komfortowo i pewnie na każdym etapie współpracy.
             </p>
+
             <Button>Zobacz nasze oferty</Button>
           </div>
           <div className="hidden md:flex max-w-[50vw] w-[50vw] h-full flex-col items-center justify-end">
-            <Image 
-              src={ElaSrc} 
+            <Image
+              src={ElaSrc}
               alt="Ela"
               width={400}
-              height={600} 
+              height={600}
               className="w-auto h-full object-contain "
               priority
             />
