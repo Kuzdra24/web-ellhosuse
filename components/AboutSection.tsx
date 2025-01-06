@@ -21,7 +21,7 @@ export const AboutSection: React.FC = () => {
             </div>
             <div className="flex flex-wrap justify-center items-center space-x-4 p-6">
                 {sections.map((section, index) => (
-                    <div key={index} className="flex flex-col justify-center items-center space-x-4 p-6">
+                    <div key={index} className="flex flex-col text-center justify-center items-center space-x-4 p-6">
                         {section.icon}
                         <h2 className="text-xl font-semibold">{section.title}</h2>
                         <p className='max-w-[250px] text-sm text-text text-center'>{section.description}</p>

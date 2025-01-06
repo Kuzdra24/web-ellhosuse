@@ -25,9 +25,9 @@ export const PartnersSection: FC = () => {
     return (
         <section className="mt-12 w-full flex flex-col items-center">
             <Title>Dodatkowe usługi</Title>
-            <div className='flex w-[80%] mt-8 mb-32' >
+            <div className='flex w-[80%] flex-wrap items-center justify-center mt-8 mb-32' >
                 {partners.map(({ title, descriptions, icon }) => (
-                    <div className="relative m-8 min-w-[250px]">
+                    <div className="relative m-8 max-w-[300px] w-full">
                         <div className="relative z-10 bg-white p-4 text-text flex flex-col flex-wrap items-center rounded-md shadow-xl justify-center">
                             <h2 className="text-[24px]">{title}</h2>
                             {icon}

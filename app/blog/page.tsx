@@ -18,7 +18,7 @@ export default async function Blog() {
             <li key={post.slug} className="bg-white p-4 rounded-md shadow-md hover:shadow-lg transition-shadow duration-300">
               <Link href={`/blog/${post.slug}`}>
                 <div className="cursor-pointer">
-                  <Image width={post.obraz.width} height={post.obraz.height} src={post.obraz.url} alt={post.title} className="w-full h-auto rounded-t-md" />
+                  <img width={post.obraz.width || 800} height={post.obraz.height || 600} src={post.obraz.url} alt={post.title} className="w-full h-auto rounded-t-md" />
                   <div className="p-4">
                     <p className="text-gray-500 text-sm mb-2">Dodane {format(new Date(post.updatedAt), 'dd MMMM yyyy', {locale: pl})}</p>
                     <h2 className="text-2xl font-semibold mb-2">{post.title}</h2>
