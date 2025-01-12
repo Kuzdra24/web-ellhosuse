@@ -12,18 +12,14 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-// Funkcja generująca treść e-maila za pomocą EJS
 async function generateEmailTemplate(formData: Record<string, any>) {
     const { name, email, phone, region, homeType, city, price, area, listingDate, saleDate, applyType } = formData;
 
-    // Formatowanie dat do czytelnej postaci
     const formattedListingDate = listingDate ? new Date(listingDate).toLocaleDateString('pl-PL') : 'Nie podano';
     const formattedSaleDate = saleDate ? new Date(saleDate).toLocaleDateString('pl-PL') : 'Nie podano';
 
-    // Ścieżka do pliku szablonu
     const templatePath = path.resolve('app/templates/emailTemplate.ejs');
 
-    // Renderowanie szablonu EJS
     const htmlContent = await ejs.renderFile(templatePath, {
         name,
         email,

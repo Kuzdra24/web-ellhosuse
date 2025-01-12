@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,6 +9,8 @@
   --color-accent: #FFD9FC;
   --color-background: #FFFAFE;
   --color-text: #3c383a;
+  --font-montserrat: 'Montserrat', sans-serif;
+  --font-lora: 'Lora', serif;
 }
 
 body {
@@ -19,19 +23,21 @@ body {
   border-radius: var(--radius);
   padding: 1rem;
   list-style: decimal-leading-zero;
-  
 }
-.blog-post p{
+
+.blog-post p {
   margin: 5px;
 }
-.blog-post ul{
+
+.blog-post ul {
   margin-left: 20px;
 }
 
-.blog-post li{
+.blog-post li {
   margin: 5px;
   list-style: inside;
 }
+
 @layer base {
   :root {
     --radius: 0.5rem;

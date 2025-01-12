@@ -14,7 +14,6 @@ export default function Home() {
       <OfferSection />
       <ApplyPropertySection />
       <PartnersSection />
-      <Footer />
     </main>
   );
 }

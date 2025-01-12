@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { lora, montserrat } from "../assets/fonts";
 import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -15,11 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${lora.variable} ${montserrat.variable} antialiased`}
-      >
+      <body className="font-montserrat antialiased">
         <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );
