@@ -1,5 +1,9 @@
+import ContactForm from "@/components/ContactForm";
+
 export default function Contact() {
-    return <div>
-        
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <ContactForm />
     </div>
+  );
 }
