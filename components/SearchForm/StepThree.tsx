@@ -8,6 +8,7 @@ import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { pl } from 'date-fns/locale'
 import { Button } from "@/components/UI/Button";
+import { Checkbox } from "@/components/UI/checkbox";
 import {
     Form,
     FormControl,
@@ -35,6 +36,7 @@ const stepTwoSchema = z.object({
     searchDate: z.date({
         required_error: "Wybierz datę rozpoczęcia poszukiwań",
     }),
+    terms: z.boolean().refine((value) => value === true, "Akceptacja regulaminu jest wymagana"),
 });
 
 type StepThreeProps = {
@@ -50,7 +52,8 @@ export default function StepThree({ formData, prevStep, updateFormData }: StepTh
         defaultValues: {
             priceRange: formData.priceRange,
             areaRange: formData.areaRange,
-            searchDate: formData.searchDate
+            searchDate: formData.searchDate,
+            terms: formData.terms,
         },
     });
 
@@ -181,11 +184,28 @@ export default function StepThree({ formData, prevStep, updateFormData }: StepTh
                             </FormItem>
                         )}
                     />
+                    <FormField
+                        control={form.control}
+                        name="terms"
+                        render={({ field }) => (
+                            <FormItem>
+                                <div className="flex items-center space-x-2">
+                                    <FormControl>
+                                        <Checkbox id="terms" checked={field.value} onCheckedChange={field.onChange} />
+                                    </FormControl>
+                                    <FormLabel htmlFor="terms" className="text-[11px] text-neutral-600 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                        Akceptuję Politykę Prywatności oraz wyrażam zgodę przetwarzanie danych w celu odpowiedzi na wypełniony formularz kontaktowy.
+                                    </FormLabel>
+                                </div>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
                     <div className="flex justify-between">
                         <Button type="button" onClick={prevStep}>
                             Wstecz
                         </Button>
-                        <Button type="submit">Dalej</Button>
+                        <Button type="submit">Wyślij</Button>
                     </div>
                 </div>
             </form>

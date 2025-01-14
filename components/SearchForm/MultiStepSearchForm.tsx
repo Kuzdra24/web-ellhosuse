@@ -21,6 +21,7 @@ export const MultiStepSearchForm = () => {
         priceRange: [0, 500000], // Domyślna wartość
         areaRange: [0, 200],
         searchDate: undefined,
+        terms: false,
     });
 
     const [currentStep, setCurrentStep] = useState(1);
