@@ -1,5 +1,5 @@
 "use client";
-
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -24,6 +24,7 @@ import {
     PopoverTrigger,
 } from "@/components/UI/popover";
 import { Slider } from "@/components/UI/slider";
+import { Progress } from "@/components/UI/progress";
 import { useToast } from "@/hooks/use-toast";
 
 const stepTwoSchema = z.object({
@@ -47,6 +48,9 @@ type StepThreeProps = {
 
 export default function StepThree({ formData, prevStep, updateFormData }: StepThreeProps) {
     const { toast } = useToast()
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [progress, setProgress] = useState(10);
+
     const form = useForm({
         resolver: zodResolver(stepTwoSchema),
         defaultValues: {
@@ -59,6 +63,18 @@ export default function StepThree({ formData, prevStep, updateFormData }: StepTh
 
     const handleSubmit = async () => {
         try {
+            setIsSubmitting(true);
+
+            let progressInterval = setInterval(() => {
+                setProgress((prev) => {
+                    if (prev >= 95) {
+                        clearInterval(progressInterval);
+                        return prev;
+                    }
+                    return prev + 5;
+                });
+            }, 50);
+
             const response = await fetch("/api/send-email", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -82,6 +98,9 @@ export default function StepThree({ formData, prevStep, updateFormData }: StepTh
                 description: "Nie udało się wysłać danych. Spróbuj ponownie.",
                 variant: "destructive",
             });
+        }finally{
+            setIsSubmitting(false);
+            setTimeout(() => setProgress(0), 1000);
         }
     };
     const onSubmit = (data: any) => {
@@ -95,8 +114,12 @@ export default function StepThree({ formData, prevStep, updateFormData }: StepTh
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                 <div className="w-full sm:w-full w-[50%] p-5 sm:p-10">
                     <h2 className="font-montserrat text-[24px] text-text">Jakiej nieruchomości szukasz?</h2>
-
-
+                    {isSubmitting && (
+                        <div>
+                            <Progress value={progress} />
+                            <p className="text-sm text-gray-500 mt-2">Wysyłanie danych...</p>
+                        </div>
+                    )}
                     {/* Price Range */}
                     <FormField
                         control={form.control}
@@ -207,6 +230,7 @@ export default function StepThree({ formData, prevStep, updateFormData }: StepTh
                         </Button>
                         <Button type="submit">Wyślij</Button>
                     </div>
+                    
                 </div>
             </form>
         </Form>

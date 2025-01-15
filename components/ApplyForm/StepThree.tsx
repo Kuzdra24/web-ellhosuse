@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -8,6 +9,7 @@ import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { pl } from 'date-fns/locale'
 import { Button } from "@/components/UI/Button";
+import { Checkbox } from "@/components/UI/checkbox";
 import {
     Form,
     FormControl,
@@ -23,9 +25,10 @@ import {
     PopoverTrigger,
 } from "@/components/UI/popover";
 import { Slider } from "@/components/UI/slider";
+import { Progress } from "@/components/UI/progress";
 import { useToast } from "@/hooks/use-toast";
 
-const stepTwoSchema = z.object({
+const stepThreeSchema = z.object({
     priceRange: z
         .tuple([z.number().min(0, "Cena minimalna musi być nieujemna"), z.number()])
         .refine(([min, max]) => max > min, "Cena maksymalna musi być większa niż minimalna"),
@@ -34,6 +37,9 @@ const stepTwoSchema = z.object({
         .refine(([min, max]) => max > min, "Powierzchnia maksymalna musi być większa niż minimalna"),
     searchDate: z.date({
         required_error: "Wybierz datę rozpoczęcia poszukiwań",
+    }),
+    terms: z.literal(true, {
+        errorMap: () => ({ message: "Musisz zaakceptować Politykę Prywatności" }),
     }),
 });
 
@@ -44,22 +50,31 @@ type StepThreeProps = {
 };
 
 export default function StepThree({ formData, prevStep, updateFormData }: StepThreeProps) {
-    const { toast } = useToast()
+    const { toast } = useToast();
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [progress, setProgress] = useState(0);
     const form = useForm({
-        resolver: zodResolver(stepTwoSchema),
+        resolver: zodResolver(stepThreeSchema),
         defaultValues: {
             priceRange: formData.priceRange,
             areaRange: formData.areaRange,
-            searchDate: formData.searchDate
+            searchDate: formData.searchDate,
+            terms: formData.terms,
         },
     });
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (data: any) => {
+        setIsSubmitting(true);
+        setProgress(0);
+        const interval = setInterval(() => {
+            setProgress((prev) => (prev < 90 ? prev + 5 : prev));
+        }, 100);
+
         try {
             const response = await fetch("/api/send-email", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(data),
             });
 
             if (!response.ok) {
@@ -71,6 +86,7 @@ export default function StepThree({ formData, prevStep, updateFormData }: StepTh
                 description: "Dane zostały wysłane pomyślnie.",
                 variant: "success",
             });
+            setProgress(100);
         } catch (error) {
             console.error("Błąd: ", error);
 
@@ -79,21 +95,29 @@ export default function StepThree({ formData, prevStep, updateFormData }: StepTh
                 description: "Nie udało się wysłać danych. Spróbuj ponownie.",
                 variant: "destructive",
             });
+            setProgress(0);
+        } finally {
+            clearInterval(interval);
+            setIsSubmitting(false);
         }
     };
+
     const onSubmit = (data: any) => {
         updateFormData(data);
-        handleSubmit()
+        handleSubmit(data);
     };
-
 
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                 <div className="w-full sm:w-full w-[50%] p-5 sm:p-10">
                     <h2 className="font-montserrat text-[24px] text-text">Jakiej nieruchomości szukasz?</h2>
-
-
+                    {isSubmitting && (
+                        <div className="mt-4">
+                            <Progress value={progress} />
+                            <p className="text-sm text-gray-500 mt-2">Wysyłanie danych...</p>
+                        </div>
+                    )}
                     {/* Price Range */}
                     <FormField
                         control={form.control}
@@ -180,11 +204,30 @@ export default function StepThree({ formData, prevStep, updateFormData }: StepTh
                             </FormItem>
                         )}
                     />
+                    <FormField
+                        control={form.control}
+                        name="terms"
+                        render={({ field }) => (
+                            <FormItem>
+                                <div className="flex items-center space-x-2">
+                                    <FormControl>
+                                        <Checkbox id="terms" checked={field.value} onCheckedChange={field.onChange} />
+                                    </FormControl>
+                                    <FormLabel htmlFor="terms" className="text-[11px] text-neutral-600 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                        Akceptuję Politykę Prywatności oraz wyrażam zgodę przetwarzanie danych w celu odpowiedzi na wypełniony formularz kontaktowy.
+                                    </FormLabel>
+                                </div>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
                     <div className="flex justify-between">
                         <Button type="button" onClick={prevStep}>
                             Wstecz
                         </Button>
-                        <Button type="submit">Dalej</Button>
+                        <Button type="submit" disabled={isSubmitting}>
+                            {isSubmitting ? "Wysyłanie..." : "Zakończ"}
+                        </Button>
                     </div>
                 </div>
             </form>
