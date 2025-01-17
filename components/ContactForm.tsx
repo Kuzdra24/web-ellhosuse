@@ -41,8 +41,8 @@ export default function ContactForm() {
   };
 
   return (
-    <div className="container mx-auto p-8 bg-white shadow-lg rounded-md max-w-[500px]">
-      <h1 className="text-4xl font-bold mb-8 text-center">Kontakt</h1>
+    <div className="container p-8 bg-white shadow-lg rounded-md max-w-[500px]">
+      <h1 className="text-4xl text-neutral-600 font-lora mb-8 text-center">Formularz kontaktowy</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 max-w-lg mx-auto">
           <FormField
