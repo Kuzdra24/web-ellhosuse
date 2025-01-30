@@ -160,7 +160,7 @@ export default function StepTwo({
                             Wstecz
                         </Button>
                         <Button type="submit">Dalej</Button>
-                        
+
                     </div>
                 </div>
             </form>
