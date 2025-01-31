@@ -4,6 +4,7 @@ import { FC } from "react";
 import { Offer } from "./Offer";
 import mockOfferData from "@/data/mockOfferData.json";
 import Button from "@/components/PrimaryButton";
+
 export const OfferSection: FC = () => {
   return (
     <section className="mt-10 w-full flex flex-col items-center justify-center mb-16">
@@ -11,6 +12,7 @@ export const OfferSection: FC = () => {
       <div className="flex flex-wrap justify-center max-w-[1200px] mx-auto m-8">
         {mockOfferData.map((offer) => (
           <Offer
+            id={offer.id}
             key={offer.id}
             title={offer.title}
             address={offer.location}

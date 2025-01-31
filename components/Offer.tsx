@@ -1,10 +1,13 @@
 "use client";
 import { FC } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import mapPin from "@/assets/icons/mapPin.svg";
 import houseUrl from "@/assets/images/offer-image.png";
 import Button from "./PrimaryButton";
+
 type OfferProps = {
+  id: string;
   title: string;
   address: string;
   shortDescription: string;
@@ -14,6 +17,7 @@ type OfferProps = {
 };
 
 export const Offer: FC<OfferProps> = ({
+  id,
   title,
   address,
   shortDescription,
@@ -24,7 +28,7 @@ export const Offer: FC<OfferProps> = ({
   return (
     <div className="w-full max-w-[300px] max-h-[440px] h-full bg-white shadow-md m-8 rounded-[10px] overflow-hidden">
       <Image
-        src={houseUrl}
+        src={imageUrl}
         alt={title}
         width={300}
         height={200}
@@ -43,7 +47,7 @@ export const Offer: FC<OfferProps> = ({
             <p>{price}zł </p>
             <p>{pricePerMeter}zł/m²</p>
           </div>
-          <Button>Zobacz ofertę</Button>
+          <Link href={`oferta/${id}`}><Button>Zobacz ofertę</Button></Link>
         </div>
       </div>
     </div>

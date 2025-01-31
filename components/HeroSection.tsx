@@ -7,7 +7,7 @@ import Button from "./PrimaryButton";
 export const HeroSection: React.FC = () => {
   return (
     <section className="flex flex-col items-center justify-start min-h-screen w-full bg-background">
-      <div className="relative w-full h-[90vh] ">
+      <div className="relative flex flex-col justify-end w-full h-[90vh] ">
         <div className="absolute inset-0 w-full">
           <div className="relative h-full w-full">
             <Image
@@ -21,7 +21,7 @@ export const HeroSection: React.FC = () => {
             <div className="absolute inset-0 backdrop-blur-[6px] bg-white/60" />
           </div>
         </div>
-        <div className="relative w-full h-full px-4 flex flex-col md:flex-row items-center justify-center">
+        <div className="relative w-full h-full min-[890px]:h-auto lg:h-full px-4 flex flex-col md:flex-row items-center justify-center">
           <div className="max-w-full md:max-w-[50vw] w-full flex flex-col items-center md:items-start justify-center md:pl-[8%] text-center md:text-left">
             <h1 className="font-light font-lora text-[32px] md:text-[56px] leading-[1]">
               EllHouse nieruchomości
@@ -33,7 +33,7 @@ export const HeroSection: React.FC = () => {
 
             <Button>Zobacz nasze oferty</Button>
           </div>
-          <div className="hidden md:flex max-w-[50vw] w-[50vw] h-full flex-col items-center justify-end">
+          <div className="hidden min-[890px]:flex max-w-[50vw] w-[50vw] h-full flex-col items-center justify-end">
             <Image
               src={ElaSrc}
               alt="Ela"

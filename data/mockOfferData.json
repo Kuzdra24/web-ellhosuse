@@ -1,62 +1,76 @@
 [
-    {
-      "id": "1",
-      "title": "Działka na sprzedaż",
-      "location": "Warszawa, Śródmieście",
-      "price": 850000,
-      "area": 65,
-      "rooms": 3,
-      "type": "apartment",
-      "imageUrl": "@/assets/images/offer-image.png"
-    },
-    {
-      "id": "2", 
-      "title": "Dom jednorodzinny z ogrodem",
-      "location": "Piaseczno",
-      "price": 1200000,
-      "area": 180,
-      "rooms": 5,
-      "type": "house",
-      "imageUrl": "@/assets/images/offer-image.png"
-    },
-    {
-      "id": "3",
-      "title": "Działka budowlana z mediami",
-      "location": "Konstancin-Jeziorna", 
-      "price": 450000,
-      "area": 1000,
-      "rooms": 0,
-      "type": "plot",
-      "imageUrl": "@/assets/images/offer-image.png"
-    },
-    {
-      "id": "4",
-      "title": "mieszkanie na wynajem", 
-      "location": "Warszawa, Mokotów",
-      "price": 720000,
-      "area": 55,
-      "rooms": 2,
-      "type": "apartment",
-      "imageUrl": "@/assets/images/offer-image.png"
-    },
-    {
-      "id": "5",
-      "title": "dom na sprzedaż",
-      "location": "Warszawa, Białołęka",
-      "price": 890000,
-      "area": 140,
-      "rooms": 4,
-      "type": "house",
-      "imageUrl": "@/assets/images/offer-image.png"
-    },
-    {
-      "id": "6",
-      "title": "Kawalerka po remoncie",
-      "location": "Warszawa, Wola", 
-      "price": 420000,
-      "area": 28,
-      "rooms": 1,
-      "type": "apartment",
-      "imageUrl": "@/assets/images/offer-image.png"
-    }
-]
+  {
+  "id": "1",
+  "title": "Działka na sprzedaż",
+  "location": "Warszawa, Śródmieście",
+  "price": 850000,
+  "area": 65,
+  "rooms": 3,
+  "type": "Działka",
+  "imageUrl": "https://www.gruntnieruchomosci.pl/photos/ofs_67/offer_6726074/105959477_738_450_0_1_1.jpg",
+  "description": "Przestronne i komfortowe mieszkanie w samym sercu Warszawy. Lokal składa się z trzech pokoi: salonu, sypialni oraz pokoju, który może być przeznaczony na gabinet lub pokój dla dziecka. Kuchnia jest osobna, w pełni wyposażona w nowoczesny sprzęt AGD. W łazience znajduje się zarówno wanna, jak i prysznic. Mieszkanie jest jasne, z ekspozycją okien na stronę południową, co zapewnia dużo światła przez cały dzień. Doskonała lokalizacja z pełnym dostępem do komunikacji miejskiej oraz infrastruktury handlowo-usługowej.",
+  "features": ["Blisko komunikacji miejskiej", "Winda", "Piwnica", "Balkon", "Osobna kuchnia"]
+  },
+  {
+  "id": "2",
+  "title": "Dom jednorodzinny z ogrodem",
+  "location": "Piaseczno",
+  "price": 1200000,
+  "area": 180,
+  "rooms": 5,
+  "type": "Dom",
+  "imageUrl": "https://wrenieruchomosci.pl/wp-content/uploads/2022/07/intro.jpg.webp",
+  "description": "Wyjątkowy dom jednorodzinny w spokojnej i zielonej okolicy Piaseczna. Dom o powierzchni 180 m2 usytuowany jest na przestronnej działce o powierzchni 800 m2. Na parterze znajduje się przestronny salon z kominkiem, kuchnia z jadalnią, łazienka oraz gabinet. Piętro obejmuje trzy sypialnie oraz dużą łazienkę z wanną i prysznicem. Dom został wykończony w wysokim standardzie z dbałością o każdy detal. Na terenie posesji znajduje się garaż na dwa samochody oraz zadbany ogród z miejscem na grilla.",
+  "features": ["Garaż", "Ogród", "Kominek", "Nowoczesne wykończenie", "Blisko szkół"]
+  },
+  {
+  "id": "3",
+  "title": "Działka budowlana z mediami",
+  "location": "Konstancin-Jeziorna",
+  "price": 450000,
+  "area": 1000,
+  "rooms": 0,
+  "type": "działka",
+  "imageUrl": "https://www.gruntnieruchomosci.pl/photos/ofs_67/offer_6726074/105959477_738_450_0_1_1.jpg",
+  "description": "Atrakcyjna działka budowlana o powierzchni 1000 m2 położona w malowniczej okolicy Konstancina-Jeziorny. Działka posiada pełny dostęp do medii: prąd, gaz, woda i kanalizacja. Teren jest równy i idealnie nadaje się pod budowę domu jednorodzinnego. Działka jest częściowo ogrodzona i obsadzona drzewami ozdobnymi. W pobliżu znajdują się szkoły, sklepy oraz liczne tereny rekreacyjne. Doskonała propozycja dla osób szukających spokoju i bliskości natury.",
+  "features": ["Media: prąd, gaz, woda", "Spokojna okolica", "Blisko lasu", "Idealna pod budowę domu"]
+  },
+  {
+  "id": "4",
+  "title": "Przestronne mieszkanie na Mokotowie",
+  "location": "Warszawa, Mokotów",
+  "price": 720000,
+  "area": 59.4,
+  "rooms": 4,
+  "type": "apartment",
+  "imageUrl": "https://www.witkowski-nieruchomosci.pl/images/witkowski_nieruchomosci_05a.jpg",
+  "description": "Przestronne czteropokojowe mieszkanie o powierzchni 59,4 m2 z oddzielną kuchnią, piwnicą i balkonem, usytuowane na 4 piętrze bloku w pobliżu centrum Starogardu Gdańskiego. Lokal składa się z salonu (16,5 m2) z ekspozycją południową, trzech oddzielnych pokoi, oddzielnej, w pełni wyposażonej kuchni (5,2 m2), łazienki (3,2 m2) oraz osobnej toalety (1,3 m2). Do mieszkania przynależy balkon (2,5 m2) oraz piwnica (3,87 m2). Wysokiej jakości wykończenie wnętrz, częściowo umeblowane. Blisko centrum miasta z dogodnym dostępem do komunikacji i infrastruktury handlowej.",
+  "features": ["Balkon", "Piwnica", "Oddzielna kuchnia", "Blisko centrum miasta", "Osobna toaleta"]
+  },
+  {
+  "id": "5",
+  "title": "Dom na sprzedaż",
+  "location": "Warszawa, Białołęka",
+  "price": 890000,
+  "area": 140,
+  "rooms": 4,
+  "type": "house",
+  "imageUrl": "https://bunny-wp-pullzone-vjw3hvlu2l.b-cdn.net/wp-content/uploads/2025/01/103616313.jpg",
+  "description": "Przestronny i funkcjonalny dom jednorodzinny na warszawskiej Białołęce. Dom o powierzchni 140 m2 usytuowany jest na zadbanej działce o powierzchni 600 m2. Na parterze znajduje się salon z kominkiem, kuchnia z jadalnią oraz łazienka. Piętro obejmuje trzy sypialnie oraz dużą łazienkę. Dom został wykończony w klasycznym stylu i jest gotowy do zamieszkania. W ogrodzie znajduje się miejsce na grilla oraz plac zabaw dla dzieci.",
+  "features": ["Garaż", "Taras", "Blisko szkół", "Kominek"]
+  },
+  {
+  "id": "6",
+  "title": "Kawalerka po remoncie",
+  "location": "Warszawa, Wola",
+  "price": 420000,
+  "area": 28,
+  "rooms": 1,
+  "type": "apartment",
+  "imageUrl": "https://ireland.apollo.olxcdn.com/v1/files/feg9yduf6fo71-PL/image;s=1650x1237",
+  "description": "Przytulna kawalerka na warszawskiej Woli, idealna dla singla lub inwestora pod wynajem. Lokal przeszedł generalny remont i został wykończony w nowoczesnym stylu. Składa się z pokoju dziennego z aneksem kuchennym, łazienki z prysznicem oraz przedpokoju z dużą szafą w zabudowie. Blisko komunikacja miejska, sklepy oraz tereny rekreacyjne. Kawalerka jest gotowa do zamieszkania.",
+  "features": ["Po generalnym remoncie", "Blisko komunikacji miejskiej", "Niskie opłaty", "Nowoczesne wykończenie"]
+  }
+  ]
+  
+  
