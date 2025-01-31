@@ -32,7 +32,7 @@ export const Offer: FC<OfferProps> = ({
         alt={title}
         width={300}
         height={200}
-        className="cursor-pointer w-full h-auto object-cover rounded-t-[10px] transition-transform duration-300 hover:scale-110"
+        className="cursor-pointer w-full object-cover rounded-t-[10px] transition-transform h-[200px] duration-300 hover:scale-110"
       />
       <div className="p-4">
         <p className="text-l font-bold text-gray-600">{title}</p>
