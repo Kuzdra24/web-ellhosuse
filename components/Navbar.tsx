@@ -10,9 +10,9 @@ export const navigation = {
   offers: {
     name: "Oferty",
     items: [
-      { name: "Mieszkania", href: "/oferty/mieszkania" },
-      { name: "Domy", href: "/oferty/domy" },
-      { name: "Działki", href: "/oferty/dzialki" },
+      { name: "Mieszkania", href: "/oferty/mieszkanie" },
+      { name: "Domy", href: "/oferty/dom" },
+      { name: "Działki", href: "/oferty/dzialka" },
     ],
   },
   submissions: {
