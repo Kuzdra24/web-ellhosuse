@@ -47,7 +47,7 @@ export const Offer: FC<OfferProps> = ({
             <p>{price}zł </p>
             <p>{pricePerMeter}zł/m²</p>
           </div>
-          <Link href={`oferta/${id}`}><Button>Zobacz ofertę</Button></Link>
+          <Link href={`/oferta/${id}`}><Button>Zobacz ofertę</Button></Link>
         </div>
       </div>
     </div>

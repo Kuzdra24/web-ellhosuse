@@ -10,7 +10,7 @@ export default async function Page({ params }: PagePropTypes) {
   const properties = mockOfferData.filter(offer => offer.type.toLowerCase() === slug)
 
   console.log(mockOfferData)
-  return (<div className='w-full flex flex-wrap items-center justify-center'>
+  return (<section className='w-full flex flex-wrap items-center justify-center'>
     {
       properties.map(offer => (
         <Offer
@@ -24,5 +24,5 @@ export default async function Page({ params }: PagePropTypes) {
           pricePerMeter={Math.round(offer.price / offer.area)}
         />
       ))
-    }</div>)
+    }</section>)
 }

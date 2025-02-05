@@ -37,13 +37,12 @@ async function generateEmailTemplate(formData: Record<string, any>) {
     return htmlContent;
 }
 
-// Funkcja wysyłająca mail
 async function sendMail(formData: Record<string, any>) {
     const mailOptions = {
-        from: '"Twoja Strona" <your-email@example.com>', // Nadawca
-        to: "client-email@example.com", // 
-        subject: "Nowe zgłoszenie z formularza", // Temat wiadomości
-        html: await generateEmailTemplate(formData), // Generowana treść HTML
+        from: '"Twoja Strona" <your-email@example.com>', 
+        to: "client-email@example.com", 
+        subject: "Nowe zgłoszenie z formularza", 
+        html: await generateEmailTemplate(formData), 
     };
 
     return transporter.sendMail(mailOptions);

@@ -62,7 +62,7 @@ export default function StepTwo({
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                <div className="w-full sm:w-full w-[50%] p-5 sm:p-10">
+                <div className="sm:w-full w-[50%] p-5 sm:p-10">
                     <h2 className="font-montserrat text-[24px] text-text">Dane nieruchomości</h2>
                     {/* Home Type */}
                     <FormField

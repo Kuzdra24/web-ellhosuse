@@ -109,7 +109,6 @@ export const Navbar = () => {
                   )}
                 </div>
 
-                {/* Blog Link */}
                 <Link
                   href={navigation.blog.href}
                   className="h-16 inline-flex items-center px-1 pt-1 text-sm font-medium"
@@ -117,7 +116,6 @@ export const Navbar = () => {
                   {navigation.blog.name}
                 </Link>
 
-                {/* Contact Link */}
                 <Link
                   href={navigation.contact.href}
                   className="h-16 inline-flex items-center px-1 pt-1 text-sm font-medium"
