@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="font-montserrat antialiased min-h-screen flex flex-col">
         <Navbar />
-        <main className="flex-grow">{children}</main>
+        <main className="flex-grow mt-16">{children}</main>
         <CookiePopup />
         <Footer />
       </body>

@@ -1,9 +1,11 @@
 "use client";
 import Image from "next/image";
-import burgerIcon from "@/assets/icons/burger.svg";
-import { useState } from "react";
+import { Menu, X } from "lucide-react";
+import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { navigation } from "@/components/Navbar";
+import logo from "@/assets/images/logo.png";
 
 type NavigationItem = {
   name: string;
@@ -19,34 +21,56 @@ type NavigationSection = {
 const HamburgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+    return () => {
+      document.body.classList.remove("overflow-hidden");
+    };
+  }, [isOpen]);
+
   return (
     <>
       <button
-        className="h-16 inline-flex items-center px-1 pt-1 text-sm font-medium z-20"
+        className="fixed z-20 flex items-center justify-center w-10 h-10 p-0 right-4 top-4"
         onClick={() => setIsOpen(!isOpen)}
+        aria-label="Toggle Menu"
       >
-        <Image
-          src={burgerIcon}
-          alt="Hamburger Menu"
-          width={24}
-          height={24}
-          className={`transition-all duration-300 ${isOpen
-              ? "[&_.top]:origin-center [&_.top]:rotate-45 [&_.top]:translate-y-[6.5px] [&_.middle]:opacity-0 [&_.bottom]:origin-center [&_.bottom]:-rotate-45 [&_.bottom]:-translate-y-[6.5px] [&_path]:!transition-all [&_path]:!duration-300"
-              : "hover:text-primary [&_path]:!transition-all [&_path]:!duration-300"
-            }`}
-        />
+        <motion.div animate={{ rotate: isOpen ? 90 : 0 }}>
+          {isOpen ? <X size={40} /> : <Menu size={40} />}
+        </motion.div>
       </button>
-      <div
-        className={`fixed z-10 inset-0 bg-white transition-all duration-300 ${isOpen
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 translate-y-full pointer-events-none"
-          }`}
+
+      <motion.div
+        initial={{ opacity: 0, translateX: 200 }}
+        animate={
+          isOpen
+            ? { translateX: -33, opacity: 1 }
+            : { translateX: 200, opacity: 0 }
+        }
+        transition={{ duration: 0.4, ease: "easeInOut" }}
+        className={`fixed z-10 inset-0 bg-white flex justify-center items-center w-screen`}
       >
-        <div className="flex flex-col items-center justify-center h-full space-y-6">
+        <div className="flex flex-col items-center justify-center h-full w-full space-y-6">
+          <div className="flex-shrink-0 flex items-center">
+            <Link href="/" onClick={() => setIsOpen(false)}>
+              <Image
+                src={logo}
+                alt="logo"
+                className="h-[45px] md:h-[60px] w-auto"
+              />
+            </Link>
+          </div>
           {Object.values(navigation).map((section: NavigationSection) => (
             <div key={section.name} className="text-center">
-              {section.items &&
-                <div className="px-4 py-2 text-xl font-medium">{section.name}</div>}
+              {section.items && (
+                <div className="px-4 py-2 text-xl font-medium">
+                  {section.name}
+                </div>
+              )}
               {section.items?.map((item) => (
                 <Link
                   key={item.name}
@@ -69,7 +93,7 @@ const HamburgerMenu = () => {
             </div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </>
   );
 };

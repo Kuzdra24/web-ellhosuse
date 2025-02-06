@@ -46,13 +46,13 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="w-full bg-white shadow-md font-montserrat">
+    <nav className="w-full bg-white shadow-md font-montserrat fixed z-50">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
             <Link href="/">
-            <Image src={logo} alt='logo' className="h-[60px] w-auto"/>
+            <Image src={logo} alt='logo' className="h-[45px] md:h-[60px] w-auto"/>
             </Link>
           </div>
 
