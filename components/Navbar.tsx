@@ -44,7 +44,6 @@ export const Navbar = () => {
             </Link>
           </div>
 
-          {/* Navigation Links */}
           <div className="flex space-x-8">
             {width < 768 ? (
               <HamburgerMenu />
