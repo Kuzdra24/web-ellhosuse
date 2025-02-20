@@ -3,6 +3,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { isValidPhoneNumber } from "libphonenumber-js";
 import {
     Form,
     FormControl,
@@ -12,13 +13,18 @@ import {
     FormMessage,
 } from "@/components/UI/form";
 import { Input } from "@/components/UI/Input";
+import { PhoneInput } from "@/components/UI/phone-input";
 import { Button } from "@/components/UI/Button";
 
 // Schemat walidacji
 const stepOneSchema = z.object({
     fullName: z.string().min(3, "Imię i nazwisko jest wymagane"),
     email: z.string().email("Podaj prawidłowy adres email"),
-    phone: z.string().regex(/^\d{9}$/, "Numer telefonu powinien składać się z 9 cyfr"),
+    phone: z
+        .string()
+        .refine((value) => isValidPhoneNumber(value), {
+            message: "Podaj prawidłowy numer telefonu",
+        }),
 });
 
 type StepOneProps = {
@@ -28,7 +34,7 @@ type StepOneProps = {
 };
 
 export default function StepOne({ formData, updateFormData, nextStep }: StepOneProps) {
-    const form = useForm({
+    const { watch, setValue, ...form } = useForm({
         resolver: zodResolver(stepOneSchema),
         defaultValues: {
             fullName: formData.fullName,
@@ -43,7 +49,7 @@ export default function StepOne({ formData, updateFormData, nextStep }: StepOneP
     };
 
     return (
-        <Form {...form}>
+        <Form {...form} watch={watch} setValue={setValue}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                 <FormField
                     control={form.control}
@@ -74,11 +80,15 @@ export default function StepOne({ formData, updateFormData, nextStep }: StepOneP
                 <FormField
                     control={form.control}
                     name="phone"
-                    render={({ field }) => (
+                    render={() => (
                         <FormItem>
                             <FormLabel>Numer telefonu</FormLabel>
                             <FormControl>
-                                <Input placeholder="123456789" {...field} />
+                                <PhoneInput
+                                    value={watch("phone")}
+                                    onChange={(value) => setValue("phone", value)}
+                                    defaultCountry="PL"
+                                />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
