@@ -18,8 +18,10 @@ export const MultiStepApplyForm = () => {
     offerType: "",
     region: "",
     city: "",
+    street: "",
     priceRange: [0, 500000],
     areaRange: [0, 200],
+    areaUnit: "m2",
     searchDate: undefined,
     terms: false,
   });
@@ -38,7 +40,10 @@ export const MultiStepApplyForm = () => {
       case 1:
         return { icon: <User size={32} />, title: "Krok 1: Dane osobowe" };
       case 2:
-        return { icon: <Home size={32} />, title: "Krok 2: Szczegóły nieruchomości" };
+        return {
+          icon: <Home size={32} />,
+          title: "Krok 2: Szczegóły nieruchomości",
+        };
       case 3:
         return { icon: <Handshake size={32} />, title: "Krok 3: Podsumowanie" };
       default:
@@ -51,19 +56,22 @@ export const MultiStepApplyForm = () => {
   return (
     <div className="w-full md-max-w-[1000px] max-w-[350px] md:max-w-[1000px]  bg-white rounded-md min-h-[60vh] shadow-xl flex flex-col md:flex-row">
       <motion.div
-        className="bg-primary w-full md:w-[40%] pb-10 rounded-tl-md rounded-bl-md text-white space-y-4"
+        className="bg-primary w-full flex flex-col justify-between md:w-[40%] pb-10 rounded-tl-md rounded-bl-md text-white space-y-4"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="flex items-center space-x-4 p-6">
-          {icon}
-          <h2 className="text-xl font-semibold">{title}</h2>
+        <div>
+          <div className="flex items-center space-x-4 p-6">
+            {icon}
+            <h2 className="text-xl font-semibold">{title}</h2>
+          </div>
+          <p className="text-sm text-gray-200 pl-6 pr-6">
+            Krok {currentStep} z 3. Wypełnij formularz, aby sprzedać swoją
+            nieruchomość.
+          </p>
         </div>
-        <p className="text-sm text-gray-200 pl-6 pr-6">
-          Krok {currentStep} z 3. Wypełnij formularz, aby sprzedać swoją nieruchomość.
-        </p>
         <Image src={iconImage} alt="icon" className="w-full hidden md:flex" />
       </motion.div>
 
@@ -76,7 +84,11 @@ export const MultiStepApplyForm = () => {
           transition={{ duration: 0.5 }}
         >
           {currentStep === 1 && (
-            <StepOne formData={formData} updateFormData={updateFormData} nextStep={nextStep} />
+            <StepOne
+              formData={formData}
+              updateFormData={updateFormData}
+              nextStep={nextStep}
+            />
           )}
           {currentStep === 2 && (
             <StepTwo

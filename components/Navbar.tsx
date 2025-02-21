@@ -31,7 +31,7 @@ export const navigation = {
 };
 
 export const Navbar = () => {
-  const width = useWidth();
+  const width = useWidth() ?? 0;
 
   return (
     <nav className="w-full bg-white shadow-md font-montserrat fixed z-50">

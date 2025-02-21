@@ -8,6 +8,7 @@ import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
 import Image from "next/image";
+import { min } from "date-fns";
 
 export const MultiStepSearchForm = () => {
     const [formData, setFormData] = useState({
@@ -18,8 +19,11 @@ export const MultiStepSearchForm = () => {
         offerType: "",
         region: "",
         city: "",
-        priceRange: [0, 500000], // Domyślna wartość
-        areaRange: [0, 200],
+        minPrice: "",
+        maxPrice: "",
+        minArea: "",
+        maxArea: "",
+        areaUnit: "m2",
         searchDate: undefined,
         terms: false,
     });
@@ -65,7 +69,7 @@ export const MultiStepSearchForm = () => {
                     Krok {currentStep} z 3. Wypełnij formularz, aby znaleźć odpowiednią nieruchomość.
                 </p>
                 {/* Dodatkowe informacje o formularzu */}
-                <Image src={iconImage} alt="icon" className="w-full pl-6"/>
+                <Image src={iconImage} priority={false} alt="icon" className="w-full pl-6"/>
             </motion.div>
 
             <div className="p-6 mx-auto flex flex-col justify-center space-y-4 w-[60%]">
