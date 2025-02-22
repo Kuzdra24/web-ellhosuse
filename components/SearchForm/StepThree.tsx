@@ -148,7 +148,7 @@ export default function StepThree({
               control={form.control}
               name="minPrice"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="w-[50%] mr-4">
                   <FormLabel>Cena</FormLabel>
                   <FormControl>
                     <Input type="number" placeholder="Od" {...field} />
@@ -162,7 +162,7 @@ export default function StepThree({
               control={form.control}
               name="maxPrice"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="w-[50%]">
                   <FormControl>
                     <Input type="number" placeholder="Do" {...field} />
                   </FormControl>
