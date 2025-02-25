@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const Title = ({ children }: { children: React.ReactNode }) => {
   const elementRef = useRef<HTMLDivElement>(null);

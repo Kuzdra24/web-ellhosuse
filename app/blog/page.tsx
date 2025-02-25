@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { getPosts } from "@/lib/hygraph";
-import Image from "next/image";
 import { format } from "date-fns";
 import {pl} from 'date-fns/locale';
 

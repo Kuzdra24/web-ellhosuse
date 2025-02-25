@@ -14,7 +14,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/UI/form";
-import PrimaryButton from "./PrimaryButton";
 
 const contactSchema = z.object({
   name: z.string().min(1, "Imię jest wymagane"),
@@ -36,7 +35,7 @@ export default function ContactForm() {
     },
   });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: object) => {
     console.log(data);
   };
 

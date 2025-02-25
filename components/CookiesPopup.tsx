@@ -7,26 +7,22 @@ import { X, Cookie } from "lucide-react";
 export default function CookiePopup() {
   const [visible, setVisible] = useState(false);
 
-  // Sprawdzamy, czy użytkownik już zaakceptował cookies
   useEffect(() => {
     const cookiesAccepted = localStorage.getItem("cookiesAccepted");
     if (!cookiesAccepted) {
-      setVisible(true); // Jeśli cookies nie zostały zaakceptowane, wyświetlamy popup
+      setVisible(true);
     }
   }, []);
 
   const handleAcceptCookies = () => {
-    // Zapisujemy informację o akceptacji plików cookies w localStorage
-    localStorage.setItem("cookiesAccepted", "true");
-    setVisible(false); // Ukrywamy popup po akceptacji
-  };
-
-  const handleClosePopup = () => {
-    // Możliwość zamknięcia popupa bez akceptacji (np. klikając "X")
     setVisible(false);
   };
 
-  if (!visible) return null; // Jeśli popup ma być niewidoczny, zwracamy null
+  const handleClosePopup = () => {
+    setVisible(false);
+  };
+
+  if (!visible) return null;
 
   return (
     <div className="fixed bottom-4 left-4 z-50 flex justify-center">

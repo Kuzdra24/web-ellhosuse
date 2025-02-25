@@ -52,7 +52,7 @@ const HamburgerMenu = () => {
             : { translateX: 200, opacity: 0 }
         }
         transition={{ duration: 0.4, ease: "easeInOut" }}
-        className={`fixed z-10 inset-0 bg-white flex justify-center items-center w-screen`}
+        className={`fixed h-screen z-10 inset-0 bg-white flex justify-center items-center w-screen`}
       >
         <div className="flex flex-col items-center justify-center h-full w-full space-y-6">
           <div className="flex-shrink-0 flex items-center">

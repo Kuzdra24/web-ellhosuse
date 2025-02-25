@@ -21,10 +21,8 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/UI/Select";
-import { Slider } from "@/components/UI/slider";
-import { homeTypes, regions } from '@/data/applyFormData'; // zakładając, że te dane są w tym pliku
+import { homeTypes, regions } from '@/data/applyFormData';
 
-// Schemat walidacji
 const stepTwoSchema = z.object({
     homeType: z.string().min(1, "Wybierz typ nieruchomości"),
     offerType: z.string().min(1, "Wybierz typ oferty"),
