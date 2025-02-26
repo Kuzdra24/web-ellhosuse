@@ -12,7 +12,7 @@ import {
 export const Footer: FC = () => {
   return (
     <footer className="w-full bg-primary text-white">
-      <div className="container mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="container mx-auto py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Social Media Section */}
         <div>
           <h2 className="text-lg font-semibold mb-4">Znajdź nas</h2>
@@ -43,17 +43,17 @@ export const Footer: FC = () => {
           <h2 className="text-lg font-semibold mb-4">Nawigacja</h2>
           <ul className="space-y-3">
             <li>
-              <Link href="/about" className="hover:underline">
-                O nas
+              <Link href="/uslugi" className="hover:underline">
+                Usługi
               </Link>
             </li>
             <li>
-              <Link href="/properties" className="hover:underline">
+              <Link href="/oferty" className="hover:underline">
                 Nieruchomości
               </Link>
             </li>
             <li>
-              <Link href="/contact" className="hover:underline">
+              <Link href="/kontakt" className="hover:underline">
                 Kontakt
               </Link>
             </li>
@@ -70,13 +70,13 @@ export const Footer: FC = () => {
           <h2 className="text-lg font-semibold mb-4">Kontakt</h2>
           <ul className="space-y-3">
             <li className="flex items-center gap-2">
-              <Phone /> +48 123 456 789
+              <Phone /> +48 575 481 500
             </li>
             <li className="flex items-center gap-2">
-              <Mail /> kontakt@nieruchomosci.pl
+              <Mail /> biuro@ellhouse.pl
             </li>
             <li className="flex items-center gap-2">
-              <MapPin /> ul. Przykładowa 12, 00-001 Warszawa
+              <MapPin /> ul. Elsnera 5a/4, 49-130 Tułowice
             </li>
           </ul>
         </div>

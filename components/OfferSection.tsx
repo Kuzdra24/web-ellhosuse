@@ -1,9 +1,10 @@
 "use client";
 import Title from "./Title";
-import { FC } from "react";
-import { Offer } from "./Offer";
+import {FC} from "react";
+import {Offer} from "./Offer";
 import mockOfferData from "@/data/mockOfferData.json";
 import Button from "@/components/PrimaryButton";
+import Link from "next/link";
 
 export const OfferSection: FC = () => {
   return (
@@ -23,7 +24,9 @@ export const OfferSection: FC = () => {
           />
         ))}
       </div>
-      <Button>Więcej ofert</Button>
+      <Link href={"/oferty"}>
+        <Button>Więcej ofert</Button>
+      </Link>
     </section>
   );
 };
