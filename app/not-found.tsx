@@ -4,7 +4,7 @@ import { Home, Search } from "lucide-react";
 
 export default function Custom404() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-white via-purple-100 to-pink-100 text-gray-900">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-white to-purple-100 text-gray-900">
       <div className="text-center px-6">
         <h1 className="text-[6rem] font-bold text-primary drop-shadow-lg animate-float">404</h1>
         <h2 className="text-2xl font-semibold mt-2">Oops! Strona nie istnieje</h2>
@@ -17,11 +17,6 @@ export default function Custom404() {
         <Link href="/">
           <Button variant="primary" className="flex items-center gap-2 hover:scale-105 transition-transform">
             <Home size={20} /> Wróć do strony głównej
-          </Button>
-        </Link>
-        <Link href="/oferty">
-          <Button  className="flex items-center gap-2 hover:scale-105 transition-transform">
-            <Search size={20} /> Przeglądaj oferty
           </Button>
         </Link>
       </div>

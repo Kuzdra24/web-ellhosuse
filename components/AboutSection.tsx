@@ -28,7 +28,7 @@ export const AboutSection: React.FC = () => {
 
   return (
     <section className="mt-10 w-full flex flex-col items-center justify-center mb-16">
-      <Title>
+      <Title widthPercentage={49}>
         Dlaczego Ellhouse?
       </Title>
       <div className='w-full max-w-[1200px]'>

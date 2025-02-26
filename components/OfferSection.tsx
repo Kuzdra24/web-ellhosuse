@@ -9,7 +9,7 @@ import Link from "next/link";
 export const OfferSection: FC = () => {
   return (
     <section className="mt-10 w-full flex flex-col items-center justify-center mb-16">
-      <Title>Najnowsze oferty nieruchomości</Title>
+      <Title widthPercentage={34}>Najnowsze oferty nieruchomości</Title>
       <div className="flex flex-wrap justify-center max-w-[1200px] mx-auto m-8">
         {mockOfferData.map((offer) => (
           <Offer

@@ -12,7 +12,7 @@ const ApplyPropertySection: FC = () => {
       <div className="absolute bottom-[100px] left-[-150px] w-[300px] h-[300px] bg-primary rounded-full blur-3xl opacity-50 "></div>
       <div className="absolute top-[200px] right-[-200px] w-[250px] h-[250px] bg-primary rounded-full blur-3xl opacity-50 "></div>
 
-      <Title>Zgłoś swoją nieruchomość</Title>
+      <Title widthPercentage={45}>Zgłoś swoją nieruchomość</Title>
 
       <div className="w-full flex flex-wrap justify-center gap-8 z-1 bg-transparent">
         <ApplyBox

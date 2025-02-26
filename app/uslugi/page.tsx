@@ -3,130 +3,29 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import Title from "@/components/Title";
-import oneSvg from "@/assets/notus/1-bez_kosztow.svg";
-import twoSvg from "@/assets/notus/2-szybko.svg";
-import threeSvg from "@/assets/notus/3-pewnie.svg";
 import logo from "@/assets/notus/NOTUS_logo_RGB.svg";
-import imgOne from "@/assets/notus/proces-kredytowy-1.png";
-import imgTwo from "@/assets/notus/proces-kredytowy-2.png";
-import imgThree from "@/assets/notus/proces-kredytowy-3.png";
-import imgFour from "@/assets/notus/proces-kredytowy-4.png";
-import imgFive from "@/assets/notus/proces-kredytowy-5.png";
-import { Button } from "@/components/UI/Button";
+import {Button} from "@/components/UI/Button";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/UI/accordion";
-import { motion } from "framer-motion";
+import {
+  adventages,
+  adventages2,
+  stepsToGetCredit,
+  faq,
+  supportDescription,
+  scheDescription,
+  karolinaDescription,
+} from "@/data/servicesData";
+import karolina from "@/assets/images/Karolina.jpg"
+import {motion} from "framer-motion";
 
 export default function Home() {
-  const adventages = [
-    "Wkład własny już od 10% - w programie Rodzinny Kredyt Mieszkaniowy 0% wkładu własnego",
-    "Niskie raty kredytu",
-    "Dogodny okres kredytowania",
-    "Małe koszty kredytu",
-  ];
-  const adventages2 = [
-    {
-      name: "Bez dodatkowych kosztów, nasze usługi są bezpłatne",
-      icon: (
-        <Image
-          src={oneSvg}
-          className="text-primary"
-          alt="Bez dodatkowych kosztów nasze usługi są bezpłatne"
-          width={70}
-          height={70}
-        />
-      ),
-    },
-    {
-      name: "Porównaj oferty z ponad 15 banków szybko i obiektywnie",
-      icon: (
-        <Image
-          src={twoSvg}
-          className="text-primary"
-          alt="Porównaj oferty z ponad 15 banków szybko i obiektywnie"
-          width={70}
-          height={70}
-        />
-      ),
-    },
-    {
-      name: "Pomożemy skompletować dokumenty oraz przygotować wnioski kredytowe",
-      icon: (
-        <Image
-          src={threeSvg}
-          className="text-primary"
-          alt="Pomożemy skompletować dokumenty oraz przygotować wnioski kredytowe"
-          width={70}
-          height={70}
-        />
-      ),
-    },
-  ];
-
-  const stepsToGetCredit = [
-    {
-      name: "Spotkanie z ekspertem, zbadanie zdolności kredytowej",
-      icon: (
-        <Image
-          src={imgOne}
-          alt="Spotkanie z ekspertem, zbadanie zdolności kredytowej"
-          width={100}
-          height={100}
-        />
-      ),
-    },
-    {
-      name: "Przedstawienie najlepszych ofert wielu banków",
-      icon: (
-        <Image
-          src={imgTwo}
-          alt="Przedstawienie najlepszych ofert wielu banków"
-          width={100}
-          height={100}
-        />
-      ),
-    },
-    {
-      name: "Kompletowanie dokumentów i złożenie wniosków",
-      icon: (
-        <Image
-          src={imgThree}
-          alt="Kompletowanie dokumentów i złożenie wniosków"
-          width={100}
-          height={100}
-        />
-      ),
-    },
-    {
-      name: "Uzyskanie pozytywnych decyzji kredytowych i podpisanie umowy",
-      icon: (
-        <Image
-          src={imgFour}
-          alt="Uzyskanie pozytywnych decyzji kredytowych i podpisanie umowy"
-          width={100}
-          height={100}
-        />
-      ),
-    },
-    {
-      name: "Wypłata kredytu i zakup nieruchomości",
-      icon: (
-        <Image
-          src={imgFive}
-          alt="Wypłata kredytu i zakup nieruchomości"
-          width={100}
-          height={100}
-        />
-      ),
-    },
-  ];
-
   return (
-    <div>
+    <>
       <Head>
         <title>Kredyt Hipoteczny - Najlepsze Warunki</title>
         <meta
@@ -135,23 +34,14 @@ export default function Home() {
         />
       </Head>
       <div className="container mx-auto p-6 flex flex-col items-center">
-        <Title>Finansowanie nieruchomości</Title>
+        <Title widthPercentage={48}>Finansowanie nieruchomości</Title>
         <section className="my-12 flex flex-col items-center justify-center">
           <h2 className="text-2xl mb-4">
             Zyskaj kredyt hipoteczny na najlepszych warunkach
           </h2>
-          <div className="w-full">
-            {" "}
-            <p className="max-w-[1000px] text-center mt-4 mb-8">
-              Specjalnie dla naszych Klientów ubiegających się o kredyt
-              hipoteczny oferujemy bezpłatne wsparcie ekspertów finansowych
-              NOTUS FINANSE S.A. Nasi eksperci posiadają wieloletnie
-              doświadczenie i współpracują z największymi bankami. Bezpłatnie i
-              bez żadnych zobowiązań przedstawią oferty kredytowe ponad 15
-              banków. Pomogą przygotować niezbędną dokumentację, złożą wnioski
-              do wybranych banków oraz wyjaśnią zawiłości umowy kredytowej.
-            </p>
-            <ul className="mt-8 pl-6 space-y-2 list-none ">
+          <div className="w-full max-w-[1000px] text-center">
+            <p className="mt-4 mb-8">{supportDescription}</p>
+            <ul className="mt-8 pl-6 space-y-2 list-none">
               {adventages.map((advantage, index) => (
                 <li key={index}>✔️ {advantage}</li>
               ))}
@@ -163,56 +53,34 @@ export default function Home() {
                 key={index}
                 className="flex flex-col items-center justify-center m-6 max-w-[300px]"
               >
-                {advantage.icon}{" "}
-                <p className="text-center">{advantage.name} </p>
+                <Image src={advantage.icon.source} alt={advantage.icon.alt} width={80} height={80}/>
+                <p className="text-center mt-2">{advantage.name}</p>
               </li>
             ))}
           </ul>
         </section>
 
         <section className="my-12">
-          <h2 className="text-2xl mb-4 text-center">
-            Najczęściej zadawane pytania
-          </h2>
-          <Accordion type="single" collapsible className="w-[800px]">
-            <AccordionItem value="item-1">
-              <AccordionTrigger>
-                Dlaczego warto wziąć kredyt właśnie z nami?
-              </AccordionTrigger>
-              <AccordionContent>
-                Mamy do wyboru oferty kredytowe praktycznie wszystkich banków.
-                Będziesz mógł dowolnie je porównać i to bez żadnych zobowiązań.
-                Jeżeli zdecydujesz się zaciągnąć kredyt z pomocą naszych
-                profesjonalnych ekspertów kredytowych, cały proces będzie
-                przyjemny i szybki, Możesz liczyć też na pełne wsparcie i pomoc
-                na każdym etapie ubiegania się o kredyt.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-2">
-              <AccordionTrigger>
-                Czy zapłacisz więcej niż w banku?
-              </AccordionTrigger>
-              <AccordionContent>
-                Nie pobieramy żadnych opłat czy prowizji, To banki płacą nam za
-                pomoc w obsłudze Klienta. Ponadto kredyt w Twoim banku wcale nie
-                musi być najtańszy. Dzięki pomocy naszego eksperta bezpłatnie
-                sprawdzisz najlepsze kredyty hipoteczne.
-              </AccordionContent>
-            </AccordionItem>
+          <h2 className="text-2xl mb-4 text-center">Najczęściej zadawane pytania</h2>
+          <Accordion type="single" collapsible className="max-w-[800px] w-full mx-auto">
+            {faq.map((item, index) => (
+              <AccordionItem key={index} value={`item-${index}`}>
+                <AccordionTrigger>{item.question}</AccordionTrigger>
+                <AccordionContent>{item.answer}</AccordionContent>
+              </AccordionItem>
+            ))}
           </Accordion>
         </section>
 
         <section className="my-12">
-          <h2 className="text-2xl text-center mb-6">
-            Proces uzyskania kredytu
-          </h2>
+          <h2 className="text-2xl text-center mb-6">Proces uzyskania kredytu</h2>
           <div className="max-w-3xl mx-auto">
             {stepsToGetCredit.map((step, index) => (
               <motion.div
                 key={index}
                 className="flex items-center space-x-4 p-4 border-b last:border-b-0"
                 variants={{
-                  hidden: { opacity: 0, y: 20 },
+                  hidden: {opacity: 0, y: 20},
                   visible: (i) => ({
                     opacity: 1,
                     y: 0,
@@ -225,33 +93,75 @@ export default function Home() {
                 }}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true }}
+                viewport={{once: true}}
                 custom={index}
               >
-                <div className="flex-shrink-0">{step.icon}</div>
+                <Image
+                  src={step.icon.source}
+                  alt={step.icon.alt}
+                  width={60}
+                  height={60}
+                  className="flex-shrink-0"
+                />
                 <p className="text-lg">{step.name}</p>
               </motion.div>
             ))}
           </div>
           <div className="flex items-center justify-center flex-col">
-            <Image
-              src={logo}
-              alt="logo"
-              width={200}
-              height={200}
-              className="mt-8"
-            />
+            <Image src={logo} alt="logo" width={200} height={200} className="mt-8"/>
             <Link
-              target="blank"
+              target="_blank"
               href="https://lp.notus.pl/v2/kredyt-mieszkaniowy-na-start/?param_hash=afd48420"
             >
-              <Button variant="primary" size={"lg"} className="mt-8 p-[20px]">
+              <Button variant="primary" size="lg" className="mt-8 p-[20px]">
                 Skontaktuj się z Ekspertem
               </Button>
             </Link>
           </div>
         </section>
+
+        <section
+          id={"sche"}
+          className="my-12 w-screen relative flex flex-col min-h-[500px] justify-center items-center backdrop-blur-xl p-10 overflow-hidden">
+          <div className="absolute inset-0">
+            <div
+              className="absolute top-20 md:top-20 -left-10 w-48 h-48 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl opacity-30 "></div>
+            <div
+              className="absolute top-96 md:top-32 right-10 w-40 h-40 bg-pink-400 rounded-full mix-blend-multiply filter blur-3xl opacity-30 "></div>
+          </div>
+
+
+          <Title widthPercentage={29}>
+            Świadectwo Charakterystyki Energetycznej
+          </Title>
+          <p className="mt-4 text-lg text-center relative z-10 max-w-2xl mx-auto">
+            {scheDescription}
+          </p>
+
+          <div className="mt-6 max-w-[1200px] flex flex-col md:flex-row items-center justify-between relative z-10">
+            {/* Obrazek na mobile na górze, na desktopie po prawej */}
+            <Image
+              src={karolina}
+              alt="Karolina"
+              className="order-1 md:order-2 w-[200px] aspect-square object-cover object-top rounded-full shadow-xl md:ml-10"
+              width={200}
+              height={200}
+            />
+
+            <div className="order-2 md:order-1 mt-6 md:mt-0 md:ml-8 w-full mx-auto">
+              <h3 className="text-xl font-medium">Jak otrzymać certyfikat?</h3>
+              <p className="mt-2 text-gray-700 mb-4 drop-shadow-lg">
+                {karolinaDescription[0]}
+              </p>
+              <p className="mt-2 text-gray-700 mb-4 drop-shadow-md">
+                {karolinaDescription[1]}
+              </p>
+              <p>{karolinaDescription[2]}</p>
+            </div>
+          </div>
+
+        </section>
       </div>
-    </div>
+    </>
   );
 }
