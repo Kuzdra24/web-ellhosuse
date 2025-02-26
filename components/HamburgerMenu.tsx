@@ -4,7 +4,7 @@ import { Menu, X } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { navigation } from "@/components/Navbar";
+import { navigation } from "@/data/menuData";
 import logo from "@/assets/images/logo.png";
 
 type NavigationItem = {
@@ -48,7 +48,7 @@ const HamburgerMenu = () => {
         initial={{ opacity: 0, translateX: 200 }}
         animate={
           isOpen
-            ? { translateX: -33, opacity: 1 }
+            ? { translateX: -7, opacity: 1 }
             : { translateX: 200, opacity: 0 }
         }
         transition={{ duration: 0.4, ease: "easeInOut" }}
