@@ -1,4 +1,15 @@
-export const navigation = {
+type NavigationItem = {
+  name: string;
+  href: string;
+};
+
+type NavigationSection = {
+  name: string;
+  href?: string;
+  items?: NavigationItem[];
+};
+
+export const navigation: Record<string, NavigationSection> = {
   offers: {
     name: "Oferty",
     href: "/oferty",
