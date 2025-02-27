@@ -1,21 +1,18 @@
 import { useState, useEffect } from "react";
 
 export const useWidth = () => {
-  const [width, setWidth] = useState<number | undefined >(undefined);
+  const [width, setWidth] = useState<number>(0);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      setWidth(window.innerWidth);
-    };
-    
+    setIsClient(true);
+    const handleResize = () => setWidth(window.innerWidth);
+
     handleResize();
 
     window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  return width;
+  return isClient ? width : undefined;
 };
