@@ -7,7 +7,6 @@ import Button from "@/components/PrimaryButton";
 import Link from "next/link";
 
 export const OfferSection: FC = () => {
-  // Memoizujemy przetworzone dane, aby uniknąć ponownych obliczeń w każdym renderze
   const processedOffers = useMemo(() => {
     return mockOfferData.map((offer) => ({
       ...offer,
@@ -28,7 +27,7 @@ export const OfferSection: FC = () => {
             shortDescription={`${offer.area}m2 | ${offer.rooms} pokoi | ${offer.type}`}
             imageUrl={offer.imageUrl}
             price={offer.price}
-            pricePerMeter={offer.pricePerMeter} // Używamy już przetworzonej wartości
+            pricePerMeter={offer.pricePerMeter}
           />
         ))}
       </div>

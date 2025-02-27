@@ -54,7 +54,8 @@ export const PartnersSection: FC = () => {
             </div>
 
             <span
-              className="absolute w-full h-full z-0 -bottom-2 -left-2 rounded-2xl bg-gradient-to-r from-purple-300 to-pink-300 opacity-50 blur-sm group-hover:blur-md transition-all duration-300"></span>
+              className="absolute w-full h-full z-0 -bottom-2 -left-2 rounded-2xl bg-gradient-to-r from-purple-300 to-pink-300 opacity-50 blur-sm group-hover:blur-md transition-all duration-300">
+            </span>
           </div>
         ))}
       </div>
