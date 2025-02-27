@@ -35,11 +35,11 @@ export default function Home() {
       </Head>
       <div className="container mx-auto p-6 flex flex-col items-center">
         <Title widthPercentage={48}>Finansowanie nieruchomości</Title>
-        <section className="my-12 flex flex-col items-center justify-center">
+        <section className="my-12 flex flex-col items-start justify-center">
           <h2 className="text-2xl mb-4">
             Zyskaj kredyt hipoteczny na najlepszych warunkach
           </h2>
-          <div className="w-full max-w-[1000px] text-center">
+          <div className="w-full max-w-[1000px]">
             <p className="mt-4 mb-8">{supportDescription}</p>
             <ul className="mt-8 pl-6 space-y-2 list-none">
               {adventages.map((advantage, index) => (
@@ -47,14 +47,18 @@ export default function Home() {
               ))}
             </ul>
           </div>
-          <ul className="mt-8 pl-6 space-y-2 w-full list-none flex flex-wrap items-center justify-center">
+          <ul className="mt-20 w-full list-none flex flex-wrap items-center justify-center gap-6">
             {adventages2.map((advantage, index) => (
-              <li
-                key={index}
-                className="flex flex-col items-center justify-center m-6 max-w-[300px]"
-              >
-                <Image src={advantage.icon.source} alt={advantage.icon.alt} width={80} height={80}/>
-                <p className="text-center mt-2">{advantage.name}</p>
+              <li key={index} className="relative min-h-[280px] custom-lg:mx-4 group flex flex-col items-center justify-center p-6 w-[280px] bg-white rounded-xl shadow-md transition-all duration-300 group-hover:-translate-y-1">
+                {/* Rozmyte tło */}
+                <span className="absolute w-full h-full -z-10 -bottom-2 -left-2 rounded-2xl bg-gradient-to-r from-purple-300 to-pink-300 opacity-50 blur-sm group-hover:blur-md transition-all duration-300"></span>
+                {/* Zawartość */}
+                <div className="relative z-10 flex flex-col items-center">
+                  <div className="w-[90px] h-[90px] flex items-center justify-center rounded-full p-3">
+                    <Image src={advantage.icon.source} alt={advantage.icon.alt} width={90} height={90} />
+                  </div>
+                  <p className="text-center mt-4 text-md font-medium text-gray-800">{advantage.name}</p>
+                </div>
               </li>
             ))}
           </ul>
