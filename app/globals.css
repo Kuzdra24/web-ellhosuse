@@ -18,7 +18,9 @@ body {
   background: var(--color-background);
   font-family: var(--font-montserrat), sans-serif;
 }
-
+html{
+  scroll-behavior: smooth;
+}
 .blog-post {
   border-radius: var(--radius);
   padding: 1rem;

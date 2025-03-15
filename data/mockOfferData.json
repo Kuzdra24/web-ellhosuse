@@ -15,7 +15,7 @@
   "id": "2",
   "title": "Dom jednorodzinny z ogrodem",
   "location": "Piaseczno",
-  "price": 1200000,
+  "price": 120000,
   "area": 180,
   "rooms": 5,
   "type": "Dom",
@@ -30,7 +30,7 @@
   "price": 450000,
   "area": 1000,
   "rooms": 0,
-  "type": "dziala",
+  "type": "dzialka",
   "imageUrl": "https://www.gruntnieruchomosci.pl/photos/ofs_67/offer_6726074/105959477_738_450_0_1_1.jpg",
   "description": "Atrakcyjna działka budowlana o powierzchni 1000 m2 położona w malowniczej okolicy Konstancina-Jeziorny. Działka posiada pełny dostęp do medii: prąd, gaz, woda i kanalizacja. Teren jest równy i idealnie nadaje się pod budowę domu jednorodzinnego. Działka jest częściowo ogrodzona i obsadzona drzewami ozdobnymi. W pobliżu znajdują się szkoły, sklepy oraz liczne tereny rekreacyjne. Doskonała propozycja dla osób szukających spokoju i bliskości natury.",
   "features": ["Media: prąd, gaz, woda", "Spokojna okolica", "Blisko lasu", "Idealna pod budowę domu"]

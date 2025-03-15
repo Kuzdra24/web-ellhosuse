@@ -9,6 +9,7 @@ export const Footer: FC = () => {
 
   useEffect(() => {
     setYear(new Date().getFullYear());
+
   }, []);
 
   return (
