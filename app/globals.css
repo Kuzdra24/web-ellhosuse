@@ -21,6 +21,19 @@ body {
 html{
   scroll-behavior: smooth;
 }
+
+
+.blur-shadow-bg {
+  position: absolute;
+  background: var(--color-primary);
+  border-radius: 24px;
+  rotate: 35deg;
+  z-index: -1;
+  filter: blur(90px);
+  will-change: transform;
+  animation: shadow-slide infinite 4s linear alternate;
+}
+
 .blog-post {
   border-radius: var(--radius);
   padding: 1rem;

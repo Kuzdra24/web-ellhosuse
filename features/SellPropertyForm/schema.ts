@@ -8,7 +8,7 @@ export const sellPropertySchema = z.object({
     .regex(/^\d+$/, "Powierzchnia musi być liczbą")
     .transform(Number)
     .refine((val) => val > 0, "Powierzchnia musi być większa niż 0"),
-  unit: z.string().min(1).max(5),
+  unit: z.enum(["m2", "ar", "ha"]),
   roomsCount: z.string().min(1).max(5),
   region: z.string().min(3).max(20),
   city: z.string().min(3).max(20),

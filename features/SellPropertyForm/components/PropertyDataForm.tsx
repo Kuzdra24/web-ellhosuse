@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import { z } from "zod";
 import { sellPropertySchema } from "../schema";
 import { useForm } from "react-hook-form";
@@ -7,7 +6,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -17,7 +15,8 @@ import { Button } from "@/components/UI/Button";
 import { Input } from "@/components/UI/Input";
 import { useRouter } from "next/navigation";
 import {useSellPropertyStore} from "@/app/sprzedaj-nieruchomosc/store";
-import { useEffect } from "react";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/UI/Select";
+import {homeTypes} from "@/data/applyFormData";
 
 const sellPropertyHouseSchema = sellPropertySchema.pick({
   propertyType: true,
@@ -28,7 +27,7 @@ const sellPropertyHouseSchema = sellPropertySchema.pick({
 
 type SellPropertyHouseSchema = z.infer<typeof sellPropertyHouseSchema>;
 
-export function SellPropertyHouseForm(): React.FC {
+export function PropertyDataForm() {
   const router = useRouter();
 
   const propertyType: string | undefined = useSellPropertyStore((state) => state.propertyType);
@@ -42,23 +41,15 @@ export function SellPropertyHouseForm(): React.FC {
     defaultValues: {
       propertyType: "",
       area: 0,
-      unit: "",
+      unit: "m2",
       roomsCount: "",
     },
   });
 
   const onSubmit = (data: SellPropertyHouseSchema) => {
     setData(data);
-    router.push("/sprzedaj-nieruchomosc/lokalizaja");
+    router.push("/sprzedaj-nieruchomosc/lokalizacja");
   };
-
-  useEffect(() => {
-    if (!useSellPropertyStore().persist.hasHydrated) return;
-
-    if (!firstName || !lastName) {
-      router.push("/onboarding/name");
-    }
-  }, [useSellPropertyStore().persist.hasHydrated, firstName, lastName, router]);
 
   return (
     <Form {...form}>
@@ -66,37 +57,86 @@ export function SellPropertyHouseForm(): React.FC {
         onSubmit={form.handleSubmit(onSubmit)}
         className="w-[300px] space-y-8"
       >
+        {/* Home Type */}
         <FormField
           control={form.control}
-          name="password"
+          name="propertyType"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input placeholder="********" type="password" {...field} />
-              </FormControl>
-              <FormDescription>This is your password.</FormDescription>
+              <FormLabel>Typ nieruchomości</FormLabel>
+              <Select
+                onValueChange={field.onChange}
+                defaultValue={field.value}
+              >
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Wybierz typ nieruchomości" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {homeTypes.map((item) => (
+                    <SelectItem value={item.value} key={item.value}>
+                      {item.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               <FormMessage />
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
-          name="repeatPassword"
+          name="area"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Confirm Password</FormLabel>
-              <FormControl>
-                <Input placeholder="********" type="password" {...field} />
-              </FormControl>
-              <FormDescription>
-                This is your password confirmation.
-              </FormDescription>
+              <FormLabel>Powierzchnia</FormLabel>
+              <div className="flex space-x-2">
+                <FormControl>
+                  <Input type="text" placeholder="np. 50" {...field} />
+                </FormControl>
+                <FormField
+                  control={form.control}
+                  name="unit"
+                  render={({ field }) => (
+                    <FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <SelectTrigger className="w-[80px]">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="m2">m²</SelectItem>
+                          <SelectItem value="ar">ar</SelectItem>
+                          <SelectItem value="ha">ha</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                  )}
+                />
+              </div>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Next</Button>
+
+        <FormField
+          control={form.control}
+          name="roomsCount"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Liczba Pokoi</FormLabel>
+              <FormControl>
+                <Input placeholder="3" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit">Dalej</Button>
       </form>
     </Form>
   );
