@@ -1,7 +1,8 @@
 import {LocationForm} from "@/features/SellPropertyForm/components/LocationForm"
+import {MultistepFormLayout} from "@/components/MultistepFormLayout";
 
 export default function propertyDataPage() {
-  return (<div>
+  return (<MultistepFormLayout>
     <LocationForm/>
-  </div>)
+  </MultistepFormLayout>)
 }

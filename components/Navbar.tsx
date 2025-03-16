@@ -63,7 +63,7 @@ export const Navbar = () => {
                 >
                   <DropdownMenu open={openDropdown === "offers"}>
                     <DropdownMenuTrigger asChild>
-                      <Link href={navigation.offers.href} className="flex items-center space-x-1">
+                      <Link href={navigation.offers.href || ""} className="flex items-center space-x-1">
                         <Button variant="menu">{navigation.offers.name}
                           <ChevronDown
                             className={`transition-transform duration-300 ${
@@ -75,7 +75,8 @@ export const Navbar = () => {
                       </Link>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="start" className="mt-[-4px]">
-                      {navigation.offers.items.map((item) => (
+                      {navigation.offers.items &&
+                        navigation.offers.items.map((item) => (
                         <DropdownMenuItem key={item.name} asChild>
                           <Link href={item.href}>{item.name}</Link>
                         </DropdownMenuItem>
@@ -102,7 +103,9 @@ export const Navbar = () => {
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="start" className="mt-[-4px]">
-                      {navigation.submissions.items.map((item) => (
+                      {
+                        navigation.submissions.items &&
+                        navigation.submissions.items.map((item) => (
                         <DropdownMenuItem key={item.name} asChild>
                           <Link href={item.href}>{item.name}</Link>
                         </DropdownMenuItem>
@@ -118,7 +121,7 @@ export const Navbar = () => {
                 >
                   <DropdownMenu open={openDropdown === "services"}>
                     <DropdownMenuTrigger asChild>
-                      <Link href={navigation.services.href} className="flex items-center space-x-1">
+                      <Link href={navigation.services.href || ""} className="flex items-center space-x-1">
                         <Button variant="menu">{navigation.services.name}
                           <ChevronDown
                             className={`transition-transform duration-300 ${
@@ -130,7 +133,9 @@ export const Navbar = () => {
                       </Link>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="start" className="mt-[-4px]">
-                      {navigation.services.items.map((item) => (
+                      {
+                        navigation.services.items &&
+                        navigation.services.items.map((item) => (
                         <DropdownMenuItem key={item.name} asChild>
                           <Link href={item.href}>{item.name}</Link>
                         </DropdownMenuItem>
@@ -140,12 +145,12 @@ export const Navbar = () => {
                 </div>
 
                 <Button variant="menu" asChild>
-                  <Link href={navigation.blog.href}>
+                  <Link href={navigation.blog.href || ""}>
                     {navigation.blog.name}
                   </Link>
                 </Button>
                 <Button variant="menu" asChild>
-                  <Link href={navigation.contact.href}>
+                  <Link href={navigation.contact.href || ""}>
                     {navigation.contact.name}
                   </Link>
                 </Button>

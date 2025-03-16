@@ -46,28 +46,15 @@ const offerTypes = [
 export function OfferForm() {
   const router = useRouter();
 
-  // Pobieranie danych ze store
-  const {
-    offerType,
-    price,
-    date,
-    propertyType,
-    area,
-    roomsCount,
-    region,
-    city,
-    setData,
-  } = useSellPropertyStore((state) => ({
-    offerType: state.offerType,
-    price: state.price,
-    date: state.date,
-    propertyType: state.propertyType,
-    area: state.area,
-    roomsCount: state.roomsCount,
-    region: state.region,
-    city: state.city,
-    setData: state.setData,
-  }));
+  const offerType: string | undefined = useSellPropertyStore((state) => state.offerType);
+  const price: number | undefined = useSellPropertyStore((state) => state.price);
+  const date: Date | undefined = useSellPropertyStore((state) => state.date);
+  const propertyType: string | undefined = useSellPropertyStore((state) => state.propertyType);
+  const area: number | undefined = useSellPropertyStore((state) => state.area);
+  const roomsCount: string | undefined = useSellPropertyStore((state) => state.roomsCount);
+  const region: string | undefined = useSellPropertyStore((state) => state.region);
+  const city: string | undefined = useSellPropertyStore((state) => state.city);
+  const setData = useSellPropertyStore((state) => state.setData);
 
   const form = useForm<SellPropertyOfferSchema>({
     resolver: zodResolver(sellPropertyOfferSchema),
@@ -92,10 +79,9 @@ export function OfferForm() {
     }
   }, [propertyType, area, roomsCount, region, city, router]);
 
-  // Funkcja obsługująca przesłanie formularza
   const onSubmit = (data: SellPropertyOfferSchema) => {
-    setData(data); // Aktualizacja danych w store
-    router.push("/sprzedaj-nieruchomosc/dane-personalne"); // Przejście do kroku 4
+    setData(data);
+    router.push("/sprzedaj-nieruchomosc/dane-personalne");
   };
 
   return (
@@ -190,7 +176,7 @@ export function OfferForm() {
           )}
         />
 
-        <div className="flex space-x-4">
+        <div className="flex space-x-4 justify-between">
           <Button
             type="button"
             variant="outline"

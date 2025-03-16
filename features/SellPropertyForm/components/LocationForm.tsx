@@ -22,7 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/UI/Select";
-import { homeTypes, regions } from "@/data/applyFormData";
+import { regions } from "@/data/applyFormData";
 import { useEffect } from "react";
 
 const sellPropertyLocationSchema = sellPropertySchema.pick({
@@ -30,7 +30,6 @@ const sellPropertyLocationSchema = sellPropertySchema.pick({
   city: true,
   streetAddress: true,
 });
-
 
 const locationSchema = sellPropertyLocationSchema.extend({
   streetAddress: sellPropertySchema.shape.streetAddress.optional(),
@@ -41,16 +40,13 @@ type SellPropertyLocationSchema = z.infer<typeof locationSchema>;
 export function LocationForm() {
   const router = useRouter();
 
-  const { region, city, streetAddress, propertyType, area, roomsCount, setData } =
-    useSellPropertyStore((state) => ({
-      region: state.region,
-      city: state.city,
-      streetAddress: state.streetAddress,
-      propertyType: state.propertyType,
-      area: state.area,
-      roomsCount: state.roomsCount,
-      setData: state.setData,
-    }));
+  const region: string | undefined = useSellPropertyStore((state) => state.region);
+  const city: string | undefined = useSellPropertyStore((state) => state.city);
+  const streetAddress: string | undefined = useSellPropertyStore((state) => state.streetAddress);
+  const propertyType: string | undefined = useSellPropertyStore((state) => state.propertyType);
+  const area: number | undefined = useSellPropertyStore((state) => state.area);
+  const roomsCount: string | undefined = useSellPropertyStore((state) => state.roomsCount);
+  const setData = useSellPropertyStore((state) => state.setData);
 
   const form = useForm<SellPropertyLocationSchema>({
     resolver: zodResolver(locationSchema),
@@ -64,7 +60,7 @@ export function LocationForm() {
   useEffect(() => {
     if (!useSellPropertyStore.persist.hasHydrated) return;
 
-    if (!propertyType || !area || !roomsCount) {
+    if (!propertyType || !area || (["dom", "mieszkanie"].includes(propertyType) && !roomsCount)) {
       router.push("/sprzedaj-nieruchomosc");
     }
   }, [propertyType, area, roomsCount, router]);
@@ -76,11 +72,7 @@ export function LocationForm() {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="w-[300px] space-y-8"
-      >
-        {/* Województwo */}
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-[300px] space-y-8">
         <FormField
           control={form.control}
           name="region"
@@ -105,8 +97,6 @@ export function LocationForm() {
             </FormItem>
           )}
         />
-
-        {/* Miasto */}
         <FormField
           control={form.control}
           name="city"
@@ -120,8 +110,6 @@ export function LocationForm() {
             </FormItem>
           )}
         />
-
-        {/* Ulica (opcjonalne) */}
         <FormField
           control={form.control}
           name="streetAddress"
@@ -135,7 +123,6 @@ export function LocationForm() {
             </FormItem>
           )}
         />
-
         <div className="flex space-x-4">
           <Button
             type="button"

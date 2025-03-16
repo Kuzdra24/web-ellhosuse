@@ -32,17 +32,17 @@ export function PropertyDataForm() {
 
   const propertyType: string | undefined = useSellPropertyStore((state) => state.propertyType);
   const area: number | undefined = useSellPropertyStore((state) => state.area)
-  const unit: string | undefined = useSellPropertyStore((state) => state.unit)
+  const unit: "m2" | "ar" | "ha" | undefined = useSellPropertyStore((state) => state.unit)
   const roomsCount: string | undefined = useSellPropertyStore((state) => state.roomsCount)
   const setData = useSellPropertyStore((state) => state.setData);
 
   const form = useForm<SellPropertyHouseSchema>({
     resolver: zodResolver(sellPropertyHouseSchema),
     defaultValues: {
-      propertyType: "",
-      area: 0,
-      unit: "m2",
-      roomsCount: "",
+      propertyType: propertyType || "",
+      area: area || 0,
+      unit: unit || "m2",
+      roomsCount: roomsCount || "",
     },
   });
 

@@ -1,8 +1,8 @@
 "use client";
-import {z} from "zod";
-import {sellPropertySchema} from "../schema";
-import {useForm} from "react-hook-form";
-import {zodResolver} from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { sellPropertySchema } from "../schema";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
@@ -11,13 +11,12 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/UI/form";
-import {Button} from "@/components/UI/Button";
-import {Input} from "@/components/UI/Input";
-import {useRouter} from "next/navigation";
-import {useSellPropertyStore} from "@/app/sprzedaj-nieruchomosc/store";
-import {useEffect} from "react";
-import {PhoneInput} from "@/components/UI/phone-input";
-import {Checkbox} from "@/components/UI/checkbox";
+import { Button } from "@/components/UI/Button";
+import { Input } from "@/components/UI/Input";
+import { useRouter } from "next/navigation";
+import { useSellPropertyStore } from "@/app/sprzedaj-nieruchomosc/store";
+import { useEffect } from "react";
+import { PhoneInput } from "@/components/UI/phone-input";
 
 const sellPropertyUserSchema = sellPropertySchema.pick({
   fullName: true,
@@ -31,36 +30,20 @@ type SellPropertyUserSchema = z.infer<typeof sellPropertyUserSchema>;
 export function UserDataForm() {
   const router = useRouter();
 
-  // Pobieranie danych ze store
-  const {
-    fullName,
-    email,
-    phone,
-    terms,
-    propertyType,
-    area,
-    roomsCount,
-    region,
-    city,
-    offerType,
-    price,
-    date,
-    setData,
-  } = useSellPropertyStore((state) => ({
-    fullName: state.fullName,
-    email: state.email,
-    phone: state.phone,
-    terms: state.terms,
-    propertyType: state.propertyType,
-    area: state.area,
-    roomsCount: state.roomsCount,
-    region: state.region,
-    city: state.city,
-    offerType: state.offerType,
-    price: state.price,
-    date: state.date,
-    setData: state.setData,
-  }));
+  // Pobieranie każdej właściwości oddzielnie z typem | undefined
+  const fullName: string | undefined = useSellPropertyStore((state) => state.fullName);
+  const email: string | undefined = useSellPropertyStore((state) => state.email);
+  const phone: string | undefined = useSellPropertyStore((state) => state.phone);
+  const terms: boolean | undefined = useSellPropertyStore((state) => state.terms);
+  const propertyType: string | undefined = useSellPropertyStore((state) => state.propertyType);
+  const area: number | undefined = useSellPropertyStore((state) => state.area);
+  const roomsCount: string | undefined = useSellPropertyStore((state) => state.roomsCount);
+  const region: string | undefined = useSellPropertyStore((state) => state.region);
+  const city: string | undefined = useSellPropertyStore((state) => state.city);
+  const offerType: string | undefined = useSellPropertyStore((state) => state.offerType);
+  const price: number | undefined = useSellPropertyStore((state) => state.price);
+  const date: Date | undefined = useSellPropertyStore((state) => state.date);
+  const setData = useSellPropertyStore((state) => state.setData);
 
   const form = useForm<SellPropertyUserSchema>({
     resolver: zodResolver(sellPropertyUserSchema),
@@ -72,7 +55,7 @@ export function UserDataForm() {
     },
   });
 
-  const {watch, setValue} = form;
+  const { watch, setValue } = form;
 
   useEffect(() => {
     if (!useSellPropertyStore.persist.hasHydrated) return;
@@ -103,7 +86,7 @@ export function UserDataForm() {
 
   const onSubmit = (data: SellPropertyUserSchema) => {
     setData(data);
-    console.log(data)
+    router.push("/sprzedaj-nieruchomosc/podsumowanie");
   };
 
   return (
@@ -112,16 +95,17 @@ export function UserDataForm() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="w-[300px] space-y-8"
       >
+        {/* Imię i nazwisko */}
         <FormField
           control={form.control}
           name="fullName"
-          render={({field}) => (
+          render={({ field }) => (
             <FormItem>
               <FormLabel>Imię i nazwisko</FormLabel>
               <FormControl>
                 <Input placeholder="np. Jan Kowalski" {...field} />
               </FormControl>
-              <FormMessage/>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -130,20 +114,22 @@ export function UserDataForm() {
         <FormField
           control={form.control}
           name="email"
-          render={({field}) => (
+          render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input type="email" placeholder="np. jan@example.com" {...field} />
               </FormControl>
-              <FormMessage/>
+              <FormMessage />
             </FormItem>
           )}
         />
+
+        {/* Numer telefonu */}
         <FormField
           control={form.control}
           name="phone"
-          render={({field}) => (
+          render={({ field }) => (
             <FormItem>
               <FormLabel>Numer telefonu</FormLabel>
               <FormControl>
@@ -153,31 +139,34 @@ export function UserDataForm() {
                   defaultCountry="PL"
                 />
               </FormControl>
-              <FormMessage/>
+              <FormMessage />
             </FormItem>
           )}
         />
-        {/* Zgoda na przetwarzanie danych */}
+
+        {/* Zgoda na warunki (terms) */}
         <FormField
           control={form.control}
           name="terms"
-          render={({field}) => (
-            <FormItem className="flex items-end mb-10">
+          render={({ field }) => (
+            <FormItem className="flex items-center space-x-2">
               <FormControl>
-                <Checkbox
-                  className="mr-2"
-                  id="terms"
+                <input
+                  type="checkbox"
                   checked={field.value}
-                  onCheckedChange={field.onChange}
+                  onChange={field.onChange}
+                  className="h-4 w-4"
                 />
               </FormControl>
-              <FormLabel htmlFor="terms" className="text-xs">
-                Akceptuję Politykę Prywatności
+              <FormLabel className="text-sm">
+                Akceptuję warunki użytkowania
               </FormLabel>
-              <FormMessage/>
+              <FormMessage />
             </FormItem>
           )}
         />
+
+        {/* Przyciski nawigacyjne */}
         <div className="flex space-x-4">
           <Button
             type="button"
@@ -186,7 +175,7 @@ export function UserDataForm() {
           >
             Wstecz
           </Button>
-          <Button type="submit">Wyślij</Button>
+          <Button type="submit">Zakończ</Button>
         </div>
       </form>
     </Form>
