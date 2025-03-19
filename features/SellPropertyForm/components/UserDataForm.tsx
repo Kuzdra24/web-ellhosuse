@@ -1,8 +1,8 @@
 "use client";
-import { z } from "zod";
-import { sellPropertySchema } from "../schema";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import {z} from "zod";
+import {sellPropertySchema} from "../schema";
+import {useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
@@ -11,12 +11,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/UI/form";
-import { Button } from "@/components/UI/Button";
-import { Input } from "@/components/UI/Input";
-import { useRouter } from "next/navigation";
-import { useSellPropertyStore } from "@/app/sprzedaj-nieruchomosc/store";
-import { useEffect } from "react";
-import { PhoneInput } from "@/components/UI/phone-input";
+import {Button} from "@/components/UI/Button";
+import {Input} from "@/components/UI/Input";
+import {useRouter} from "next/navigation";
+import {useSellPropertyStore} from "@/app/sprzedaj-nieruchomosc/store";
+import {useEffect} from "react";
+import {PhoneInput} from "@/components/UI/phone-input";
+import {Checkbox} from "@/components/UI/checkbox";
 
 const sellPropertyUserSchema = sellPropertySchema.pick({
   fullName: true,
@@ -36,12 +37,12 @@ export function UserDataForm() {
   const phone: string | undefined = useSellPropertyStore((state) => state.phone);
   const terms: boolean | undefined = useSellPropertyStore((state) => state.terms);
   const propertyType: string | undefined = useSellPropertyStore((state) => state.propertyType);
-  const area: number | undefined = useSellPropertyStore((state) => state.area);
+  const area: string | undefined = useSellPropertyStore((state) => state.area);
   const roomsCount: string | undefined = useSellPropertyStore((state) => state.roomsCount);
   const region: string | undefined = useSellPropertyStore((state) => state.region);
   const city: string | undefined = useSellPropertyStore((state) => state.city);
   const offerType: string | undefined = useSellPropertyStore((state) => state.offerType);
-  const price: number | undefined = useSellPropertyStore((state) => state.price);
+  const price: string | undefined = useSellPropertyStore((state) => state.price);
   const date: Date | undefined = useSellPropertyStore((state) => state.date);
   const setData = useSellPropertyStore((state) => state.setData);
 
@@ -55,7 +56,7 @@ export function UserDataForm() {
     },
   });
 
-  const { watch, setValue } = form;
+  const {watch, setValue} = form;
 
   useEffect(() => {
     if (!useSellPropertyStore.persist.hasHydrated) return;
@@ -99,13 +100,13 @@ export function UserDataForm() {
         <FormField
           control={form.control}
           name="fullName"
-          render={({ field }) => (
+          render={({field}) => (
             <FormItem>
               <FormLabel>Imię i nazwisko</FormLabel>
               <FormControl>
                 <Input placeholder="np. Jan Kowalski" {...field} />
               </FormControl>
-              <FormMessage />
+              <FormMessage/>
             </FormItem>
           )}
         />
@@ -114,13 +115,13 @@ export function UserDataForm() {
         <FormField
           control={form.control}
           name="email"
-          render={({ field }) => (
+          render={({field}) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input type="email" placeholder="np. jan@example.com" {...field} />
               </FormControl>
-              <FormMessage />
+              <FormMessage/>
             </FormItem>
           )}
         />
@@ -129,7 +130,7 @@ export function UserDataForm() {
         <FormField
           control={form.control}
           name="phone"
-          render={({ field }) => (
+          render={({field}) => (
             <FormItem>
               <FormLabel>Numer telefonu</FormLabel>
               <FormControl>
@@ -139,7 +140,7 @@ export function UserDataForm() {
                   defaultCountry="PL"
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage/>
             </FormItem>
           )}
         />
@@ -151,14 +152,13 @@ export function UserDataForm() {
           render={({ field }) => (
             <FormItem className="flex items-center space-x-2">
               <FormControl>
-                <input
-                  type="checkbox"
+                <Checkbox
+                  id="terms"
                   checked={field.value}
-                  onChange={field.onChange}
-                  className="h-4 w-4"
+                  onCheckedChange={field.onChange} className={"my-auto"}
                 />
               </FormControl>
-              <FormLabel className="text-sm">
+              <FormLabel htmlFor="terms" className="text-sm font-gray-500 my-auto">
                 Akceptuję warunki użytkowania
               </FormLabel>
               <FormMessage />
@@ -166,7 +166,6 @@ export function UserDataForm() {
           )}
         />
 
-        {/* Przyciski nawigacyjne */}
         <div className="flex space-x-4">
           <Button
             type="button"

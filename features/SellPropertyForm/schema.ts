@@ -5,9 +5,7 @@ export const sellPropertySchema = z.object({
   propertyType: z.string().min(3).max(20),
   area: z
     .string()
-    .regex(/^\d+$/, "Powierzchnia musi być liczbą")
-    .transform(Number)
-    .refine((val) => val > 0, "Powierzchnia musi być większa niż 0"),
+    .regex(/^\d+$/, "Powierzchnia musi być liczbą"),
   unit: z.enum(["m2", "ar", "ha"]),
   roomsCount: z.string().min(1).max(5),
   region: z.string().min(3).max(20),
@@ -16,9 +14,7 @@ export const sellPropertySchema = z.object({
   offerType: z.string().min(3).max(20),
   price: z
     .string()
-    .regex(/^\d+$/, "Cena musi być liczbą")
-    .transform(Number)
-    .refine((val) => val > 0, "Cena musi być większa niż 0"),
+    .regex(/^\d+$/, "Cena musi być liczbą"),
   date: z.date({
     required_error: "Wybierz datę rozpoczęcia poszukiwań",
   }),

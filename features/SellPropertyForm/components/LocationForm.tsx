@@ -44,7 +44,7 @@ export function LocationForm() {
   const city: string | undefined = useSellPropertyStore((state) => state.city);
   const streetAddress: string | undefined = useSellPropertyStore((state) => state.streetAddress);
   const propertyType: string | undefined = useSellPropertyStore((state) => state.propertyType);
-  const area: number | undefined = useSellPropertyStore((state) => state.area);
+  const area: string | undefined = useSellPropertyStore((state) => state.area);
   const roomsCount: string | undefined = useSellPropertyStore((state) => state.roomsCount);
   const setData = useSellPropertyStore((state) => state.setData);
 
@@ -61,7 +61,7 @@ export function LocationForm() {
     if (!useSellPropertyStore.persist.hasHydrated) return;
 
     if (!propertyType || !area || (["dom", "mieszkanie"].includes(propertyType) && !roomsCount)) {
-      router.push("/sprzedaj-nieruchomosc");
+      router.push("/sprzedaj-nieruchomosc/lokalizacja");
     }
   }, [propertyType, area, roomsCount, router]);
 

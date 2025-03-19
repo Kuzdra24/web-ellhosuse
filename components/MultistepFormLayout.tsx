@@ -1,12 +1,14 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
+import {Steps} from "@/components/Steps";
 
 type PropTypes = {
+  currentStep: number;
   children: React.ReactNode;
 };
 
-export const MultistepFormLayout: React.FC<PropTypes> = ({ children }) => {
+export const MultistepFormLayout: React.FC<PropTypes> = ({ currentStep, children }) => {
   const formVariants = {
     hidden: {
       opacity: 0,
@@ -39,12 +41,13 @@ export const MultistepFormLayout: React.FC<PropTypes> = ({ children }) => {
         <span className="text-gray-500 text-md text-center font-montserrat">
           ~W kilku krokach
         </span>
+        <Steps currentStep={currentStep} />
         <motion.div
           variants={formVariants} // Warianty animacji
           initial="hidden" // Początkowy stan
           animate="visible" // Stan widoczny
           exit="exit" // Stan przy wyjściu
-          key={React.Children.toArray(children)[0]?.toString()} // Klucz do resetowania animacji przy zmianie kroku
+          key={React.Children.toArray(children)[0]?.toString()}
         >
           {children}
         </motion.div>

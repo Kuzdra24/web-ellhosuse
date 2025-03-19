@@ -1,28 +1,10 @@
-"use client";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
+import {sellPropertySchema} from "@/features/SellPropertyForm/schema";
 
 
-type SellPropertyInput = {
-  propertyType?: string;
-  area?: string;
-  unit?: "m2" | "ar" | "ha";
-  roomsCount?: string;
-  region?: string;
-  city?: string;
-  streetAddress?: string;
-  offerType?: string;
-  price?: string;
-  date?: Date;
-  fullName?: string;
-  email?: string;
-  phone?: string;
-  terms?: boolean;
-};
-
-// Typ stanu store
-type SellPropertyState = SellPropertyInput & {
-  setData: (data: Partial<SellPropertyInput>) => void;
+type SellPropertyState = Partial<sellPropertySchema> & {
+  setData: (data: Partial<sellPropertySchema>) => void;
 };
 
 export const useSellPropertyStore = create<SellPropertyState>()(

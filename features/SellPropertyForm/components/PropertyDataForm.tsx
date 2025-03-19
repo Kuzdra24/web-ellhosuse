@@ -14,9 +14,16 @@ import {
 import { Button } from "@/components/UI/Button";
 import { Input } from "@/components/UI/Input";
 import { useRouter } from "next/navigation";
-import {useSellPropertyStore} from "@/app/sprzedaj-nieruchomosc/store";
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/UI/Select";
-import {homeTypes} from "@/data/applyFormData";
+import { useSellPropertyStore } from "@/app/sprzedaj-nieruchomosc/store";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/UI/Select";
+import { homeTypes } from "@/data/applyFormData";
+import { useEffect } from "react";
 
 const sellPropertyHouseSchema = sellPropertySchema.pick({
   propertyType: true,
@@ -31,20 +38,30 @@ export function PropertyDataForm() {
   const router = useRouter();
 
   const propertyType: string | undefined = useSellPropertyStore((state) => state.propertyType);
-  const area: number | undefined = useSellPropertyStore((state) => state.area)
-  const unit: "m2" | "ar" | "ha" | undefined = useSellPropertyStore((state) => state.unit)
-  const roomsCount: string | undefined = useSellPropertyStore((state) => state.roomsCount)
+  const area: string | undefined = useSellPropertyStore((state) => state.area);
+  const unit: "m2" | "ar" | "ha" | undefined = useSellPropertyStore((state) => state.unit);
+  const roomsCount: string | undefined = useSellPropertyStore((state) => state.roomsCount);
   const setData = useSellPropertyStore((state) => state.setData);
 
   const form = useForm<SellPropertyHouseSchema>({
     resolver: zodResolver(sellPropertyHouseSchema),
     defaultValues: {
       propertyType: propertyType || "",
-      area: area || 0,
+      area: area || "",
       unit: unit || "m2",
       roomsCount: roomsCount || "",
     },
   });
+
+  // Pobierz aktualną wartość propertyType z formularza
+  const currentPropertyType = form.watch("propertyType");
+
+  // Efekt do resetowania roomsCount, gdy propertyType to "działka" lub "lokal"
+  useEffect(() => {
+    if (currentPropertyType === "działka" || currentPropertyType === "lokal") {
+      form.setValue("roomsCount", ""); // Resetuj wartość roomsCount
+    }
+  }, [currentPropertyType, form]);
 
   const onSubmit = (data: SellPropertyHouseSchema) => {
     setData(data);
@@ -53,10 +70,7 @@ export function PropertyDataForm() {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="w-[300px] space-y-8"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-[300px] space-y-8">
         {/* Home Type */}
         <FormField
           control={form.control}
@@ -64,10 +78,7 @@ export function PropertyDataForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Typ nieruchomości</FormLabel>
-              <Select
-                onValueChange={field.onChange}
-                defaultValue={field.value}
-              >
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Wybierz typ nieruchomości" />
@@ -94,7 +105,7 @@ export function PropertyDataForm() {
               <FormLabel>Powierzchnia</FormLabel>
               <div className="flex space-x-2">
                 <FormControl>
-                  <Input type="text" placeholder="np. 50" {...field} />
+                  <Input placeholder="np. 50" {...field} />
                 </FormControl>
                 <FormField
                   control={form.control}
@@ -123,19 +134,21 @@ export function PropertyDataForm() {
           )}
         />
 
-        <FormField
-          control={form.control}
-          name="roomsCount"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Liczba Pokoi</FormLabel>
-              <FormControl>
-                <Input placeholder="3" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        {currentPropertyType !== "działka" && currentPropertyType !== "lokal" && (
+          <FormField
+            control={form.control}
+            name="roomsCount"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Liczba Pokoi</FormLabel>
+                <FormControl>
+                  <Input placeholder="3" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        )}
         <Button type="submit">Dalej</Button>
       </form>
     </Form>

@@ -47,10 +47,10 @@ export function OfferForm() {
   const router = useRouter();
 
   const offerType: string | undefined = useSellPropertyStore((state) => state.offerType);
-  const price: number | undefined = useSellPropertyStore((state) => state.price);
+  const price: string| undefined = useSellPropertyStore((state) => state.price);
   const date: Date | undefined = useSellPropertyStore((state) => state.date);
   const propertyType: string | undefined = useSellPropertyStore((state) => state.propertyType);
-  const area: number | undefined = useSellPropertyStore((state) => state.area);
+  const area: string | undefined = useSellPropertyStore((state) => state.area);
   const roomsCount: string | undefined = useSellPropertyStore((state) => state.roomsCount);
   const region: string | undefined = useSellPropertyStore((state) => state.region);
   const city: string | undefined = useSellPropertyStore((state) => state.city);
@@ -61,7 +61,7 @@ export function OfferForm() {
     defaultValues: {
       offerType: offerType || "",
       price: price || undefined,
-      date: date || undefined,
+      date: date || new Date(),
     },
   });
 
