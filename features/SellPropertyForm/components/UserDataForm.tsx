@@ -31,7 +31,6 @@ type SellPropertyUserSchema = z.infer<typeof sellPropertyUserSchema>;
 export function UserDataForm() {
   const router = useRouter();
 
-  // Pobieranie każdej właściwości oddzielnie z typem | undefined
   const fullName: string | undefined = useSellPropertyStore((state) => state.fullName);
   const email: string | undefined = useSellPropertyStore((state) => state.email);
   const phone: string | undefined = useSellPropertyStore((state) => state.phone);
@@ -155,7 +154,7 @@ export function UserDataForm() {
                 <Checkbox
                   id="terms"
                   checked={field.value}
-                  onCheckedChange={field.onChange} className={"my-auto"}
+                  onCheckedChange={field.onChange} className={"mt-2"}
                 />
               </FormControl>
               <FormLabel htmlFor="terms" className="text-sm font-gray-500 my-auto">
@@ -166,7 +165,7 @@ export function UserDataForm() {
           )}
         />
 
-        <div className="flex space-x-4">
+        <div className="flex justify-between">
           <Button
             type="button"
             variant="outline"
@@ -174,7 +173,7 @@ export function UserDataForm() {
           >
             Wstecz
           </Button>
-          <Button type="submit">Zakończ</Button>
+          <Button type="submit" effect={"gooeyRight"}>Wyślij</Button>
         </div>
       </form>
     </Form>

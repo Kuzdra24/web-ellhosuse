@@ -149,7 +149,7 @@ export function PropertyDataForm() {
             )}
           />
         )}
-        <Button type="submit">Dalej</Button>
+        <Button type="submit" effect={"gooeyRight"}>Dalej</Button>
       </form>
     </Form>
   );

@@ -176,7 +176,7 @@ export function OfferForm() {
           )}
         />
 
-        <div className="flex space-x-4 justify-between">
+        <div className="flex justify-between">
           <Button
             type="button"
             variant="outline"
@@ -184,7 +184,7 @@ export function OfferForm() {
           >
             Wstecz
           </Button>
-          <Button type="submit">Dalej</Button>
+          <Button type="submit" effect={"gooeyRight"}>Dalej</Button>
         </div>
       </form>
     </Form>
