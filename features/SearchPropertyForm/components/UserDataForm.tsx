@@ -163,7 +163,7 @@ export function UserDataForm() {
           <Button
             type="button"
             variant="outline"
-            onClick={() => router.push("/sprzedaj-nieruchomosc/3")}
+            onClick={() => router.push("/zlec-poszukiwanie/3")}
           >
             Wstecz
           </Button>

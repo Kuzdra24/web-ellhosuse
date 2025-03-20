@@ -14,7 +14,7 @@ import {
 import { Button } from "@/components/UI/Button";
 import { Input } from "@/components/UI/Input";
 import { useRouter } from "next/navigation";
-import { useSearchPropertyStore } from "@/app/zlec-poszukiwanie/store"; // Zmiana na useSearchPropertyStore
+import { useSearchPropertyStore } from "@/app/zlec-poszukiwanie/store";
 import {
   Select,
   SelectContent,
@@ -25,7 +25,6 @@ import {
 import { regions } from "@/data/applyFormData";
 import React, { useEffect } from "react";
 
-// Przykładowa zmiana schematu
 const searchPropertyLocationSchema = searchPropertySchema.pick({
   region: true,
   city: true,
@@ -70,7 +69,7 @@ export function LocationForm() {
 
   const onSubmit = (data: SearchPropertyLocationSchema) => {
     setData(data);
-    router.push("/zlec-poszukiwanie/2");
+    router.push("/zlec-poszukiwanie/3");
   }
 
     return (

@@ -2,7 +2,7 @@ import {LocationForm} from "@/features/SearchPropertyForm/components/LocationFor
 import {MultistepFormLayout} from "@/components/MultistepFormLayout";
 
 export default function propertyDataPage() {
-  return (<MultistepFormLayout currentStep={2}>
+  return (<MultistepFormLayout currentStep={2} applyType={"Znajdź nieruchomość"}>
     <LocationForm/>
   </MultistepFormLayout>)
 }

@@ -3,7 +3,7 @@ import {MultistepFormLayout} from "@/components/MultistepFormLayout"
 
 export default function propertyDataPage() {
   return (
-    <MultistepFormLayout currentStep={1}>
+    <MultistepFormLayout currentStep={1} applyType={"Znajdź nieruchomość"}>
       <PropertyDataForm/>
     </MultistepFormLayout>
   )

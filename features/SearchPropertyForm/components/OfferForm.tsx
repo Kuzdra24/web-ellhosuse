@@ -86,7 +86,7 @@ export function OfferForm() {
 
   const onSubmit = (data: SearchPropertyOfferSchema) => {
     setData(data);
-    router.push("/zlec-poszukiwanie/3");
+    router.push("/zlec-poszukiwanie/4");
   };
 
   return (
@@ -122,15 +122,15 @@ export function OfferForm() {
         />
 
         {/* Cena */}
-        <div className="flex space-x-4">
+        <div className="flex space-x-4 items-end">
           <FormField
             control={form.control}
             name="priceMin"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Cena od</FormLabel>
+                <FormLabel>Cena</FormLabel>
                 <FormControl>
-                  <Input type="number" placeholder="np. 500000" {...field} />
+                  <Input type="number" placeholder="Od" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -142,9 +142,8 @@ export function OfferForm() {
             name="priceMax"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Cena do</FormLabel>
                 <FormControl>
-                  <Input type="number" placeholder="np. 1000000" {...field} />
+                  <Input type="number" placeholder="Do" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -201,7 +200,7 @@ export function OfferForm() {
           <Button
             type="button"
             variant="outline"
-            onClick={() => router.push("/zlec-poszukiwanie/1")}
+            onClick={() => router.push("/zlec-poszukiwanie/2")}
           >
             Wstecz
           </Button>

@@ -38,7 +38,6 @@ type SearchPropertyHouseSchema = z.infer<typeof searchPropertyHouseSchema>;
 export function PropertyDataForm() {
   const router = useRouter();
 
-  // Używanie useSearchPropertyStore z @/app/zlec-poszukiwanie/store
   const propertyType: string | undefined = useSearchPropertyStore((state) => state.propertyType);
   const areaMin: string | undefined = useSearchPropertyStore((state) => state.areaMin);
   const areaMax: string | undefined = useSearchPropertyStore((state) => state.areaMax);
@@ -47,7 +46,7 @@ export function PropertyDataForm() {
   const setData = useSearchPropertyStore((state) => state.setData);
 
   const form = useForm<SearchPropertyHouseSchema>({
-    resolver: zodResolver(searchPropertySchema),
+    resolver: zodResolver(searchPropertyHouseSchema),
     defaultValues: {
       propertyType: propertyType || "",
       areaMin: areaMin || "",
@@ -67,7 +66,6 @@ export function PropertyDataForm() {
 
   const onSubmit = (data: SearchPropertyHouseSchema) => {
     setData(data);
-
     router.push("/zlec-poszukiwanie/2");
   };
 
@@ -100,36 +98,33 @@ export function PropertyDataForm() {
           )}
         />
 
+      <div className="flex justify-between items-end space-x-2">
         {/* Powierzchnia - Min i Max */}
         <FormField
           control={form.control}
           name="areaMin"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Powierzchnia (min)</FormLabel>
+              <FormLabel>Powierzchnia</FormLabel>
               <FormControl>
-                <Input placeholder="np. 50" {...field} />
+                <Input placeholder="Od" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
           name="areaMax"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Powierzchnia (max)</FormLabel>
               <FormControl>
-                <Input placeholder="np. 100" {...field} />
+                <Input placeholder="Do" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-
-        {/* Jednostka */}
         <FormField
           control={form.control}
           name="unit"
@@ -141,7 +136,7 @@ export function PropertyDataForm() {
                   onValueChange={field.onChange}
                   defaultValue={field.value}
                 >
-                  <SelectTrigger className="w-[80px]">
+                  <SelectTrigger className="w-[75px]">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -155,8 +150,8 @@ export function PropertyDataForm() {
             </FormItem>
           )}
         />
+      </div>
 
-        {/* Liczba pokoi - tylko dla odpowiednich typów nieruchomości */}
         {currentPropertyType !== "działka" && currentPropertyType !== "lokal" && (
           <FormField
             control={form.control}

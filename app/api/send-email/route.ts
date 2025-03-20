@@ -37,6 +37,8 @@ async function generateEmailTemplate(formData: Record<string, any>) {
     return htmlContent;
 }
 
+
+
 async function sendMail(formData: Record<string, any>) {
     const mailOptions = {
         from: '"Twoja Strona" <your-email@example.com>', 
@@ -44,7 +46,6 @@ async function sendMail(formData: Record<string, any>) {
         subject: "Nowe zgłoszenie z formularza", 
         html: await generateEmailTemplate(formData), 
     };
-
     return transporter.sendMail(mailOptions);
 }
 
