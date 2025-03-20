@@ -37,14 +37,15 @@ async function generateEmailTemplate(formData: Record<string, any>) {
     return htmlContent;
 }
 
+
+
 async function sendMail(formData: Record<string, any>) {
     const mailOptions = {
         from: '"Twoja Strona" <your-email@example.com>', 
-        to: "client-email@example.com", 
+        to: "biuro@ellhouse.com",
         subject: "Nowe zgłoszenie z formularza", 
         html: await generateEmailTemplate(formData), 
     };
-
     return transporter.sendMail(mailOptions);
 }
 
@@ -53,10 +54,8 @@ export async function POST(req: Request) {
     try {
         const formData = await req.json();
 
-        // Wysyłanie maila
         await sendMail(formData);
 
-        // Zwrócenie odpowiedzi
         return NextResponse.json({ success: true, message: 'E-mail został wysłany.' });
     } catch (error) {
         console.error('Błąd wysyłania e-maila:', error);

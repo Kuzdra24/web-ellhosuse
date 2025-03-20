@@ -22,8 +22,8 @@ export const navigation: Record<string, NavigationSection> = {
   submissions: {
     name: "Zgłoszenia",
     items: [
-      { name: "Sprzedaj nieruchomość", href: "/zglos-nieruchomosc" },
-      { name: "Zleć poszukiwanie", href: "/zlec-poszukiwanie" },
+      { name: "Sprzedaj nieruchomość", href: "/sprzedaj-nieruchomosc/1" },
+      { name: "Zleć poszukiwanie", href: "/zlec-poszukiwanie/1" },
     ],
   },
   services: {

@@ -1,5 +1,4 @@
 import { DollarSign, Home, Bed, Grid2X2 } from 'lucide-react';
-import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 import Image from 'next/image';
 import mockOfferData from "@/data/mockOfferData.json";
@@ -18,20 +17,12 @@ interface Offer {
   features: string[];
 }
 
-interface OfferPageProps {
-  offer: Offer;
+type PageProps = {
+  params: Promise<{ slug: string }>
 }
 
-interface Params extends ParsedUrlQuery {
-  id: string;
-}
-
-export default async function Page({
-  params,
-}: {
-  params: { slug: string }
-}) {
-  const { slug } = params;
+export default async function Page({params,}: PageProps) {
+  const { slug } = await params;
 
   const offer = mockOfferData.find(el => el.id === slug);
 

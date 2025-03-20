@@ -9,6 +9,7 @@ export const Footer: FC = () => {
 
   useEffect(() => {
     setYear(new Date().getFullYear());
+
   }, []);
 
   return (
@@ -43,7 +44,7 @@ export const Footer: FC = () => {
         <div>
           <h2 className="text-lg font-semibold mb-4">Kontakt</h2>
           <ul className="space-y-3">
-            <li className="flex items-center gap-2"><Phone /> +48 575 481 500</li>
+            <li className="flex items-center gap-2"><Phone /><a href={"tel:+48575481500"}>575 481 500</a></li>
             <li className="flex items-center gap-2"><Mail /> biuro@ellhouse.pl</li>
             <li className="flex items-center gap-2"><MapPin /> ul. Elsnera 5a/4, 49-130 Tułowice</li>
           </ul>

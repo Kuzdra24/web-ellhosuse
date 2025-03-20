@@ -52,7 +52,6 @@ export default function Home() {
               <li key={index} className="relative min-h-[280px] custom-lg:mx-4 group flex flex-col items-center justify-center p-6 w-[280px] bg-white rounded-xl shadow-md transition-all duration-300 group-hover:-translate-y-1">
                 {/* Rozmyte tło */}
                 <span className="absolute w-full h-full -z-10 -bottom-2 -left-2 rounded-2xl bg-gradient-to-r from-purple-300 to-pink-300 opacity-50 blur-sm group-hover:blur-md transition-all duration-300"></span>
-                {/* Zawartość */}
                 <div className="relative z-10 flex flex-col items-center">
                   <div className="w-[90px] h-[90px] flex items-center justify-center rounded-full p-3">
                     <Image src={advantage.icon.source} alt={advantage.icon.alt} width={90} height={90} />
