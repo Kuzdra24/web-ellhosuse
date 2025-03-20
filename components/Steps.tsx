@@ -11,7 +11,7 @@ export const Steps: React.FC<StepProps> = ({ currentStep }) => {
   const circleVariants = {
     inactive: {
       scale: 1,
-      backgroundColor: "transparent",
+      backgroundColor: "#ffffff00",
       borderColor: "#6B7280",
       color: "#6B7280",
     },
@@ -23,7 +23,7 @@ export const Steps: React.FC<StepProps> = ({ currentStep }) => {
     },
     completed: {
       scale: 1,
-      backgroundColor: "transparent",
+      backgroundColor: "#ffffff00",
       borderColor: "#9108AF",
       color: "#6B7280",
     },
@@ -40,7 +40,7 @@ export const Steps: React.FC<StepProps> = ({ currentStep }) => {
   };
 
   return (
-    <div className="flex justify-between w-full py-6 px-12 items-center">
+    <div className="flex justify-between w-full py-6 px-2 md:px-10 items-center">
       {steps.map((step: number, index: number) => (
         <React.Fragment key={step}>
           <motion.div

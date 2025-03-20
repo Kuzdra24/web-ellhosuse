@@ -53,21 +53,21 @@ export function LocationForm() {
     defaultValues: {
       region: region || "",
       city: city || "",
-      streetAddress: streetAddress || undefined,
+      streetAddress: streetAddress || "",
     },
   });
 
   useEffect(() => {
     if (!useSellPropertyStore.persist.hasHydrated) return;
 
-    if (!propertyType || !area || (["dom", "mieszkanie"].includes(propertyType) && !roomsCount)) {
-      router.push("/sprzedaj-nieruchomosc/lokalizacja");
+    if (!propertyType || !area ) {
+      router.push("/sprzedaj-nieruchomosc/1");
     }
-  }, [propertyType, area, roomsCount, router]);
+  }, [useSellPropertyStore.persist.hasHydrated, propertyType, area, roomsCount, router]);
 
   const onSubmit = (data: SellPropertyLocationSchema) => {
     setData(data);
-    router.push("/sprzedaj-nieruchomosc/dane-oferty");
+    router.push("/sprzedaj-nieruchomosc/3");
   };
 
   return (
@@ -115,7 +115,7 @@ export function LocationForm() {
           name="streetAddress"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Ulica (opcjonalnie)</FormLabel>
+              <FormLabel>Ulica</FormLabel>
               <FormControl>
                 <Input placeholder="np. Floriańska 1" {...field} />
               </FormControl>
@@ -127,7 +127,7 @@ export function LocationForm() {
           <Button
             type="button"
             variant="outline"
-            onClick={() => router.push("/sprzedaj-nieruchomosc/dane-nieruchomosci")}
+            onClick={() => router.push("/sprzedaj-nieruchomosc/1")}
           >
             Wstecz
           </Button>

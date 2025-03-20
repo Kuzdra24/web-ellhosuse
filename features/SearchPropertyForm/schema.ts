@@ -1,22 +1,18 @@
 import {z} from "zod";
 import {isValidPhoneNumber} from "libphonenumber-js";
 
-export const sellPropertySchema = z.object({
-
-  applyType: z.enum(["Sprzedarz", "Poszukiwanie"]),
+export const searchPropertySchema = z.object({
   propertyType: z.string().min(3).max(20),
-  area: z
-    .string()
-    .regex(/^\d+$/, "Powierzchnia musi być liczbą"),
+  areaMin: z.string().regex(/^\d+$/, "Minimalna powierzchnia musi być liczbą"),
+  areaMax: z.string().regex(/^\d+$/, "Maksymalna powierzchnia musi być liczbą"),
   unit: z.enum(["m2", "ar", "ha"]),
   roomsCount: z.string().min(0).max(5).optional(),
   region: z.string().min(3).max(20),
   city: z.string().min(3).max(20),
   streetAddress: z.string().min(3).max(30),
   offerType: z.string().min(3).max(20),
-  price: z
-    .string()
-    .regex(/^\d+$/, "Cena musi być liczbą"),
+  priceMin: z.string().regex(/^\d+$/, "Minimalna cena musi być liczbą"),
+  priceMax: z.string().regex(/^\d+$/, "Maksymalna cena musi być liczbą"),
   date: z.date({
     required_error: "Wybierz datę rozpoczęcia poszukiwań",
   }),
@@ -32,4 +28,4 @@ export const sellPropertySchema = z.object({
   terms: z.boolean().refine((data) => data),
 });
 
-export type sellPropertySchema = z.infer<typeof sellPropertySchema>;
+export type searchPropertySchema = z.infer<typeof searchPropertySchema>;

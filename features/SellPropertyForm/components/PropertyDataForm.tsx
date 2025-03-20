@@ -53,10 +53,8 @@ export function PropertyDataForm() {
     },
   });
 
-  // Pobierz aktualną wartość propertyType z formularza
   const currentPropertyType = form.watch("propertyType");
 
-  // Efekt do resetowania roomsCount, gdy propertyType to "działka" lub "lokal"
   useEffect(() => {
     if (currentPropertyType === "działka" || currentPropertyType === "lokal") {
       form.setValue("roomsCount", ""); // Resetuj wartość roomsCount
@@ -65,7 +63,7 @@ export function PropertyDataForm() {
 
   const onSubmit = (data: SellPropertyHouseSchema) => {
     setData(data);
-    router.push("/sprzedaj-nieruchomosc/lokalizacja");
+    router.push("/sprzedaj-nieruchomosc/2");
   };
 
   return (

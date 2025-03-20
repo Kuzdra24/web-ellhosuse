@@ -1,6 +1,6 @@
 "use client";
 import {z} from "zod";
-import {sellPropertySchema} from "../schema";
+import {searchPropertySchema} from "../schema";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {
@@ -14,39 +14,40 @@ import {
 import {Button} from "@/components/UI/Button";
 import {Input} from "@/components/UI/Input";
 import {useRouter} from "next/navigation";
-import {useSellPropertyStore} from "@/app/sprzedaj-nieruchomosc/store";
+import {useSearchPropertyStore} from "@/app/zlec-poszukiwanie/store";
 import {useEffect} from "react";
 import {PhoneInput} from "@/components/UI/phone-input";
 import {Checkbox} from "@/components/UI/checkbox";
 
-const sellPropertyUserSchema = sellPropertySchema.pick({
+const searchPropertyUserSchema = searchPropertySchema.pick({
   fullName: true,
   email: true,
   phone: true,
   terms: true,
 });
 
-type SellPropertyUserSchema = z.infer<typeof sellPropertyUserSchema>;
+type SellPropertyUserSchema = z.infer<typeof searchPropertyUserSchema>;
 
 export function UserDataForm() {
   const router = useRouter();
-  const applyType: string | undefined = useSellPropertyStore((state) => state.applyType);
-  const fullName: string | undefined = useSellPropertyStore((state) => state.fullName);
-  const email: string | undefined = useSellPropertyStore((state) => state.email);
-  const phone: string | undefined = useSellPropertyStore((state) => state.phone);
-  const terms: boolean | undefined = useSellPropertyStore((state) => state.terms);
-  const propertyType: string | undefined = useSellPropertyStore((state) => state.propertyType);
-  const area: string | undefined = useSellPropertyStore((state) => state.area);
-  const roomsCount: string | undefined = useSellPropertyStore((state) => state.roomsCount);
-  const region: string | undefined = useSellPropertyStore((state) => state.region);
-  const city: string | undefined = useSellPropertyStore((state) => state.city);
-  const offerType: string | undefined = useSellPropertyStore((state) => state.offerType);
-  const price: string | undefined = useSellPropertyStore((state) => state.price);
-  const date: Date | undefined = useSellPropertyStore((state) => state.date);
-  const setData = useSellPropertyStore((state) => state.setData);
+  const fullName: string | undefined = useSearchPropertyStore((state) => state.fullName);
+  const email: string | undefined = useSearchPropertyStore((state) => state.email);
+  const phone: string | undefined = useSearchPropertyStore((state) => state.phone);
+  const terms: boolean | undefined = useSearchPropertyStore((state) => state.terms);
+  const propertyType: string | undefined = useSearchPropertyStore((state) => state.propertyType);
+  const areaMin: string | undefined = useSearchPropertyStore((state) => state.areaMin);
+  const areaMax: string | undefined = useSearchPropertyStore((state) => state.areaMax);
+  const roomsCount: string | undefined = useSearchPropertyStore((state) => state.roomsCount);
+  const region: string | undefined = useSearchPropertyStore((state) => state.region);
+  const city: string | undefined = useSearchPropertyStore((state) => state.city);
+  const offerType: string | undefined = useSearchPropertyStore((state) => state.offerType);
+  const priceMin: string | undefined = useSearchPropertyStore((state) => state.priceMin);
+  const priceMax: string | undefined = useSearchPropertyStore((state) => state.priceMax);
+  const date: Date | undefined = useSearchPropertyStore((state) => state.date);
+  const setData = useSearchPropertyStore((state) => state.setData);
 
   const form = useForm<SellPropertyUserSchema>({
-    resolver: zodResolver(sellPropertyUserSchema),
+    resolver: zodResolver(searchPropertyUserSchema),
     defaultValues: {
       fullName: fullName || "",
       email: email || "",
@@ -58,25 +59,26 @@ export function UserDataForm() {
   const {watch, setValue} = form;
 
   useEffect(() => {
-    if (!useSellPropertyStore.persist.hasHydrated) return;
+    if (!useSearchPropertyStore.persist.hasHydrated) return;
 
-    if (!propertyType || !area || !region || !city || !offerType || !price || !date) {
+    if (!propertyType || !areaMin || !areaMax || !region || !city || !offerType || !priceMin || !priceMax || !date) {
       router.push("/sprzedaj-nieruchomosc/1");
     }
-  }, [useSellPropertyStore.persist.hasHydrated, propertyType, area, region, city, offerType, price, date, router,]);
+  }, [useSearchPropertyStore.persist.hasHydrated, propertyType, areaMin, areaMax, region, city, offerType, priceMin, priceMax, date, router,]);
 
   const onSubmit = (data: SellPropertyUserSchema) => {
     setData(data);
     console.log({
       ...data,
-      applyType,
       propertyType,
-      area,
+      areaMin,
+      areaMax,
       roomsCount,
       region,
       city,
       offerType,
-      price,
+      priceMin,
+      priceMax,
       date
     })
   };

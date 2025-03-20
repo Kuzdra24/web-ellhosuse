@@ -1,6 +1,6 @@
 "use client";
 import { z } from "zod";
-import { sellPropertySchema } from "../schema";
+import { searchPropertySchema } from "../schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -14,7 +14,7 @@ import {
 import { Button } from "@/components/UI/Button";
 import { Input } from "@/components/UI/Input";
 import { useRouter } from "next/navigation";
-import { useSellPropertyStore } from "@/app/sprzedaj-nieruchomosc/store";
+import { useSearchPropertyStore } from "@/app/zlec-poszukiwanie/store";
 import {
   Select,
   SelectContent,
@@ -30,13 +30,14 @@ import { Calendar } from "@/components/UI/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/UI/popover";
 import { cn } from "@/lib/utils";
 
-const sellPropertyOfferSchema = sellPropertySchema.pick({
+const searchPropertyOfferSchema = searchPropertySchema.pick({
   offerType: true,
-  price: true,
+  priceMin: true,
+  priceMax: true,
   date: true,
 });
 
-type SellPropertyOfferSchema = z.infer<typeof sellPropertyOfferSchema>;
+type SearchPropertyOfferSchema = z.infer<typeof searchPropertyOfferSchema>;
 
 const offerTypes = [
   { value: "sprzedaz", label: "Sprzedaż" },
@@ -46,36 +47,46 @@ const offerTypes = [
 export function OfferForm() {
   const router = useRouter();
 
-  const offerType: string | undefined = useSellPropertyStore((state) => state.offerType);
-  const price: string| undefined = useSellPropertyStore((state) => state.price);
-  const date: Date | undefined = useSellPropertyStore((state) => state.date);
-  const propertyType: string | undefined = useSellPropertyStore((state) => state.propertyType);
-  const area: string | undefined = useSellPropertyStore((state) => state.area);
-  const roomsCount: string | undefined = useSellPropertyStore((state) => state.roomsCount);
-  const region: string | undefined = useSellPropertyStore((state) => state.region);
-  const city: string | undefined = useSellPropertyStore((state) => state.city);
-  const setData = useSellPropertyStore((state) => state.setData);
+  const offerType: string | undefined = useSearchPropertyStore((state) => state.offerType);
+  const priceMin: string | undefined = useSearchPropertyStore((state) => state.priceMin);
+  const priceMax: string | undefined = useSearchPropertyStore((state) => state.priceMax);
+  const date: Date | undefined = useSearchPropertyStore((state) => state.date);
+  const propertyType: string | undefined = useSearchPropertyStore((state) => state.propertyType);
+  const areaMin: string | undefined = useSearchPropertyStore((state) => state.areaMin);
+  const areaMax: string | undefined = useSearchPropertyStore((state) => state.areaMax);
+  const region: string | undefined = useSearchPropertyStore((state) => state.region);
+  const city: string | undefined = useSearchPropertyStore((state) => state.city);
+  const setData = useSearchPropertyStore((state) => state.setData);
 
-  const form = useForm<SellPropertyOfferSchema>({
-    resolver: zodResolver(sellPropertyOfferSchema),
+  const form = useForm<SearchPropertyOfferSchema>({
+    resolver: zodResolver(searchPropertyOfferSchema),
     defaultValues: {
       offerType: offerType || "",
-      price: price || "",
+      priceMin: priceMin || "",
+      priceMax: priceMax || "",
       date: date || new Date(),
     },
   });
 
   useEffect(() => {
-    if (!useSellPropertyStore.persist.hasHydrated) return;
+    if (!useSearchPropertyStore.persist.hasHydrated) return;
 
-    if (!propertyType || !area || !region || !city) {
-      router.push("/sprzedaj-nieruchomosc/1");
+    if (!propertyType || !areaMin || !areaMax || !region || !city) {
+      router.push("/zlec-poszukiwanie/1");
     }
-  }, [useSellPropertyStore.persist.hasHydrated, propertyType, area, region, city, router]);
+  }, [
+    useSearchPropertyStore.persist.hasHydrated,
+    propertyType,
+    areaMin,
+    areaMax,
+    region,
+    city,
+    router,
+  ]);
 
-  const onSubmit = (data: SellPropertyOfferSchema) => {
+  const onSubmit = (data: SearchPropertyOfferSchema) => {
     setData(data);
-    router.push("/sprzedaj-nieruchomosc/4");
+    router.push("/zlec-poszukiwanie/3");
   };
 
   return (
@@ -111,19 +122,35 @@ export function OfferForm() {
         />
 
         {/* Cena */}
-        <FormField
-          control={form.control}
-          name="price"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Cena</FormLabel>
-              <FormControl>
-                <Input type="text" placeholder="np. 500000" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="flex space-x-4">
+          <FormField
+            control={form.control}
+            name="priceMin"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Cena od</FormLabel>
+                <FormControl>
+                  <Input type="number" placeholder="np. 500000" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="priceMax"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Cena do</FormLabel>
+                <FormControl>
+                  <Input type="number" placeholder="np. 1000000" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
         {/* Data wystawienia */}
         <FormField
@@ -174,7 +201,7 @@ export function OfferForm() {
           <Button
             type="button"
             variant="outline"
-            onClick={() => router.push("/sprzedaj-nieruchomosc/2")}
+            onClick={() => router.push("/zlec-poszukiwanie/1")}
           >
             Wstecz
           </Button>

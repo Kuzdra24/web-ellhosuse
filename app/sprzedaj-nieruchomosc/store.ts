@@ -13,7 +13,7 @@ export const useSellPropertyStore = create<SellPropertyState>()(
       setData: (data) => set((state) => ({ ...state, ...data })),
     }),
     {
-      name: "property-storage",
+      name: "seal-property-storage",
       storage: createJSONStorage(() => localStorage),
     }
   )
